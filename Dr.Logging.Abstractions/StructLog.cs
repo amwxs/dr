@@ -6,5 +6,9 @@ public class StructLog
     public string? SpanId { get; set; }
     public string? ParentSpanId { get; set; }
     public int LogLevel { get; set; }
+    public int EventId { get; set; }
     public string? Message { get; set; }
+    public string? Exception { get; internal set; }
+    public DateTime CreateTime { get; internal set; }
+    public string HostIp { get; internal set; }
 }
