@@ -14,8 +14,6 @@ public class MQClient : IMQClient, IDisposable
     private IConnection _connection;
     private IModel _channel;
 
-    private const string RabbitMQ = "RabbitMQ";
-
     public MQClient(IOptionsMonitor<RabbitMQOptions> options, ILocalFileWriter localFileWriter)
     {
         _options = options.CurrentValue;
@@ -31,15 +29,24 @@ public class MQClient : IMQClient, IDisposable
 
     private IConnection GetConnection()
     {
-        var factory = new ConnectionFactory
+        try
         {
-            HostName = _options.HostName,
-            Port = _options.Port,
-            VirtualHost = _options.VirtualHost,
-            UserName = _options.UserName,
-            Password = _options.Password
-        };
-        return factory.CreateConnection();
+            var factory = new ConnectionFactory
+            {
+                HostName = _options.HostName,
+                Port = _options.Port,
+                VirtualHost = _options.VirtualHost,
+                UserName = _options.UserName,
+                Password = _options.Password
+            };
+            return factory.CreateConnection();
+        }
+        catch (Exception ex)
+        {
+            _localFileWriter.Log(new LocalFileMessage { Message = $"Connection RabbitMQ Error: {ex.Message}" });
+            throw;
+        }
+
     }
 
 
@@ -75,14 +82,14 @@ public class MQClient : IMQClient, IDisposable
         }
         catch (Exception ex)
         {
-            _localFileWriter.Write(new LocalFileMessage(RabbitMQ, $"Reconnect Error: {ex.Message}"));
+            _localFileWriter.Log(new LocalFileMessage { Message = $"Reconnect Error: {ex.Message}" });
         }
 
     }
 
     private void Connection_ConnectionShutdown(object? sender, ShutdownEventArgs e)
     {
-        _localFileWriter.Write(new LocalFileMessage(RabbitMQ, e.ReplyText));
+        _localFileWriter.Log(new LocalFileMessage { Message = e.ReplyText });
     }
 
     public void Dispose()

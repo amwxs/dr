@@ -10,12 +10,10 @@ public class LocalFileWriter : ILocalFileWriter, IDisposable
     {
         _loggerOptions = options.CurrentValue;
         _onChangeToken = options.OnChange(c => _loggerOptions = c);
-
-
     }
 
     private const string _suffix = ".log";
-    public void Write(LocalFileMessage localLog)
+    public void Log(LocalFileMessage localLog)
     {
         try
         {
@@ -23,16 +21,18 @@ public class LocalFileWriter : ILocalFileWriter, IDisposable
             {
                 Directory.CreateDirectory(_loggerOptions.LocalPath);
             }
-            var fullFilePath = Path.Combine(_loggerOptions.LocalPath, localLog.FileName, DateTime.UtcNow.ToString("yyyy-MM-dd"), _suffix);
+            var fullFilePath = Path.Combine(_loggerOptions.LocalPath, localLog.FileName + localLog.CreateTime.ToString("yyyy-MM-dd") + _suffix);
+
             using var writer = new StreamWriter(fullFilePath, true);
-            writer.WriteAsync($"datetime: {DateTime.UtcNow} Message: {localLog.Message}");
+            writer.WriteAsync($"datetime: {localLog.CreateTime} Message: {localLog.Message}");
         }
         catch (Exception)
         {
             throw;
         }
-
     }
+
+
 
     public void Dispose()
     {
