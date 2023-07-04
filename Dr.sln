@@ -17,7 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dr.Logging.RabbitMQ", "Dr.L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dr.Logging.Abstractions.Test", "Dr.Logging.Abstractions.Test\Dr.Logging.Abstractions.Test.csproj", "{2EDD7980-BFD7-4E62-A232-BF16FB6D5EB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dr.Loggin.Abstraction.IntegrationTest", "Dr.Loggin.Abstraction.IntegrationTest\Dr.Loggin.Abstraction.IntegrationTest.csproj", "{25AECE72-76AC-43D1-8174-003AD89D4C70}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dr.Logging.Abstraction.IntegrationTest", "Dr.Loggin.Abstraction.IntegrationTest\Dr.Logging.Abstraction.IntegrationTest.csproj", "{25AECE72-76AC-43D1-8174-003AD89D4C70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dr.Logging.Kafka", "Dr.Logging.Kafka\Dr.Logging.Kafka.csproj", "{B78FAFCB-0D79-4741-A33D-4BFF29ED4826}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dr.Logging.Server", "Dr.Logging.Server\Dr.Logging.Server.csproj", "{A56A5F95-89DD-4B52-9CF2-1832751682ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +53,14 @@ Global
 		{25AECE72-76AC-43D1-8174-003AD89D4C70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25AECE72-76AC-43D1-8174-003AD89D4C70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25AECE72-76AC-43D1-8174-003AD89D4C70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B78FAFCB-0D79-4741-A33D-4BFF29ED4826}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B78FAFCB-0D79-4741-A33D-4BFF29ED4826}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B78FAFCB-0D79-4741-A33D-4BFF29ED4826}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B78FAFCB-0D79-4741-A33D-4BFF29ED4826}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A56A5F95-89DD-4B52-9CF2-1832751682ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A56A5F95-89DD-4B52-9CF2-1832751682ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A56A5F95-89DD-4B52-9CF2-1832751682ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A56A5F95-89DD-4B52-9CF2-1832751682ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +72,8 @@ Global
 		{1D206F84-9752-4388-859E-DFFAE06E0DAB} = {543339C0-B4CF-424F-B2E0-B378A5678141}
 		{2EDD7980-BFD7-4E62-A232-BF16FB6D5EB1} = {543339C0-B4CF-424F-B2E0-B378A5678141}
 		{25AECE72-76AC-43D1-8174-003AD89D4C70} = {543339C0-B4CF-424F-B2E0-B378A5678141}
+		{B78FAFCB-0D79-4741-A33D-4BFF29ED4826} = {543339C0-B4CF-424F-B2E0-B378A5678141}
+		{A56A5F95-89DD-4B52-9CF2-1832751682ED} = {543339C0-B4CF-424F-B2E0-B378A5678141}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FE3D7734-85FD-4075-A0AC-D318622500C6}

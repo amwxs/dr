@@ -9,6 +9,3 @@ public class RabbitMQOptions
 
     public string Exchange { get; set; } = "drlogs";
 } 
-
-//(string HostName, int Port, string VirtualHost, string Exchange, string UserName,
-//                              string Password);
