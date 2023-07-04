@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+﻿using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
 
 namespace Dr.Logging.Abstractions
 {
@@ -7,16 +9,11 @@ namespace Dr.Logging.Abstractions
         private static readonly JsonSerializerOptions _indentedJsonOptions = new()
         {
             WriteIndented = true,
-            Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
-        };
-        private static readonly JsonSerializerOptions _jsonOptions = new()
-        {
-            Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+            Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
         };
 
         public static string ToJson(this object obj, JsonSerializerOptions? jsonOptions = null)
         {
-            jsonOptions ??= _jsonOptions;
             return JsonSerializer.Serialize(obj, jsonOptions);
         }
 

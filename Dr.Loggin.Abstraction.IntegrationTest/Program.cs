@@ -2,14 +2,24 @@
 
 using Microsoft.Extensions.Logging;
 using Dr.Logging.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
-var factory = LoggerFactory.Create(c => c.AddDrLogger(o =>
-{
-    o.IsConsolePrint = true;
-    o.LogLevel.Add("Default", LogLevel.Information);
-}));
+var serviceProvider = new ServiceCollection()
+    .AddLogging(builder =>
+    {
+        builder.ClearProviders();
+        builder.AddDrLogger(options =>
+        {
+            options.IsConsolePrint = true;
+            options.LogLevel.Add("Default", LogLevel.Information);
+        });
+    }).BuildServiceProvider();
 
-using (var enchaner = new EnhancerAccessor().Create())
+var loggerFactor = serviceProvider.GetRequiredService<ILoggerFactory>();
+var logger = loggerFactor.CreateLogger("LoggerProviderTest");
+var ehancerAccessor = serviceProvider.GetRequiredService<IEnhancerAccessor>();
+
+using (var enchaner = ehancerAccessor.Create())
 {
     enchaner.TryAdd("logEnhancer", new LogEnhancer 
     {
@@ -18,14 +28,14 @@ using (var enchaner = new EnhancerAccessor().Create())
         SpanId = Guid.NewGuid().ToString("N"),
         ParentSpanId = Guid.NewGuid().ToString("N")
     });
-    var log = factory.CreateLogger("LoggerProviderTest");
-    log.LogInformation("hello");
 
-    log.Log(LogLevel.Information, new EventId(100), new StructLog 
+    logger.LogInformation("hello");
+
+    logger.Log(LogLevel.Information, new EventId(100), new StructLog 
     {
        Message = "Hello StructLog"
     }, null, (l, e) => default!);
 }
-
+logger.LogInformation("Hello No AppId Infromation  测试下中文 %#@");
 
 Console.ReadKey();

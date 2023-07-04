@@ -10,12 +10,14 @@ public static class DependencyInjection
     {
         builder.AddConfiguration();
         builder.Services.TryAddSingleton<ILogSink, NullLogSink>();
-        builder.Services.TryAddSingleton<ILocalFileWriter, LocalFileWriter>();
         builder.Services.TryAddSingleton<IConsoleColorPrint, ConsoleColorPrint>();
-        builder.Services.TryAddSingleton<IStructLogProcessor, StructLogProcessor>();
+        builder.Services.TryAddSingleton<ILocalFileWriter, LocalFileWriter>();
         builder.Services.TryAddSingleton<IEnhancerAccessor, EnhancerAccessor>();
         builder.Services.TryAddSingleton<ILogLevelFilter, LogLevelFilter>();
         builder.Services.TryAddSingleton<IStructLogBuilder, StructLogBuilder>();
+        builder.Services.TryAddSingleton<IStructLogProcessor, StructLogProcessor>();
+
+        builder.Services.TryAddSingleton<IHostInformation, HostInformation>();
 
         LoggerProviderOptions.RegisterProviderOptions<LoggerOptions, LoggerProvider>(builder.Services);
         builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, LoggerProvider>());
