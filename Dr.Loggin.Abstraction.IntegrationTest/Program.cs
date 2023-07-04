@@ -3,16 +3,18 @@
 using Microsoft.Extensions.Logging;
 using Dr.Logging.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
+using Dr.Logging.RabbitMQ;
 
 var serviceProvider = new ServiceCollection()
     .AddLogging(builder =>
     {
-        builder.ClearProviders();
-        builder.AddDrLogger(options =>
+        builder.ClearProviders()
+        .AddDrLogger(options =>
         {
-            options.IsConsolePrint = true;
+            //options.IsConsolePrint = true;
             options.LogLevel.Add("Default", LogLevel.Information);
-        });
+        })
+        .RabbitMQSink();
     }).BuildServiceProvider();
 
 var loggerFactor = serviceProvider.GetRequiredService<ILoggerFactory>();
@@ -36,6 +38,6 @@ using (var enchaner = ehancerAccessor.Create())
        Message = "Hello StructLog"
     }, null, (l, e) => default!);
 }
-logger.LogInformation("Hello No AppId Infromation  测试下中文 %#@");
+logger.LogInformation("Hello No AppId Infromation  测试下中文");
 
 Console.ReadKey();

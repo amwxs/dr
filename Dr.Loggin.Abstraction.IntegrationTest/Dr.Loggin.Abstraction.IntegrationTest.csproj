@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Dr.Logging.Abstractions\Dr.Logging.Abstractions.csproj" />
+    <ProjectReference Include="..\Dr.Logging.RabbitMQ\Dr.Logging.RabbitMQ.csproj" />
   </ItemGroup>
 
 </Project>
