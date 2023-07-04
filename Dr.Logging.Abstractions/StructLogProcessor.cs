@@ -11,6 +11,7 @@ internal class StructLogProcessor : IStructLogProcessor, IDisposable
     private readonly BlockingCollection<StructLog> _structLogQueue;
     private readonly IDisposable? _onChangeToken;
     private readonly Thread _outputThread;
+    private const string FileLogName = "processor";
 
     public StructLogProcessor(
         IOptionsMonitor<LoggerOptions> options, 
@@ -39,7 +40,7 @@ internal class StructLogProcessor : IStructLogProcessor, IDisposable
     {
         if (!_structLogQueue.TryAdd(structLog))
         {
-            _localFileWriter.Write(new LocalFileMessage(_loggerOptions.LocalPath, "processor", "Failed to enqueue the log."));
+            _localFileWriter.Write(new LocalFileMessage(FileLogName, "Failed to enqueue the log."));
         }
     }
 
@@ -87,7 +88,7 @@ internal class StructLogProcessor : IStructLogProcessor, IDisposable
             }
             catch (Exception ex)
             {
-                _localFileWriter.Write(new LocalFileMessage(_loggerOptions.LocalPath, "processor", ex.Message));
+                _localFileWriter.Write(new LocalFileMessage(FileLogName, ex.Message));
             }
         }
     }

@@ -38,13 +38,11 @@ using (var enchaner = ehancerAccessor.Create())
     //   Message = "Hello StructLog"
     //}, null, (l, e) => default!);
 
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 50; i++)
     {
-        if (i % 5 == 0)
-        {
-            Thread.Sleep(500);
-        }
-        logger.LogInformation("hello{i}", i);
+        logger.LogInformation("info hello{i}", i);
+        logger.LogWarning("warn hello{i}", i);
+        logger.LogError("error hello{i}", i);
     }
 }
 //logger.LogInformation("Hello No AppId Infromation  测试下中文");

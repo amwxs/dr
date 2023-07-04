@@ -4,19 +4,28 @@ using RabbitMQ.Client;
 using System.Text;
 
 namespace Dr.Logging.RabbitMQ;
-public class MQClient : IMQClient
+public class MQClient : IMQClient, IDisposable
 {
 
-    private readonly RabbitMQOptions _options;
+    private RabbitMQOptions _options;
+    private readonly IDisposable? _onChangeToken;
+    private readonly ILocalFileWriter _localFileWriter;
+
     private IConnection _connection;
     private IModel _channel;
 
-    public MQClient(IOptions<RabbitMQOptions> options)
+    private const string RabbitMQ = "RabbitMQ";
+
+    public MQClient(IOptionsMonitor<RabbitMQOptions> options, ILocalFileWriter localFileWriter)
     {
-        _options = options.Value;
+        _options = options.CurrentValue;
+        _onChangeToken = options.OnChange(c => { _options = c; });
+        _localFileWriter = localFileWriter;
+
         _connection = GetConnection();
         _connection.ConnectionShutdown += Connection_ConnectionShutdown;
         _channel = _connection.CreateModel();
+
     }
 
 
@@ -52,19 +61,32 @@ public class MQClient : IMQClient
 
     private void Reconnect()
     {
-        if (_connection.IsOpen)
+        try
         {
-            _channel = _connection.CreateModel();
+            if (_connection.IsOpen)
+            {
+                _channel = _connection.CreateModel();
+            }
+            else
+            {
+                _connection = GetConnection();
+                _channel = _connection.CreateModel();
+            }
         }
-        else
+        catch (Exception ex)
         {
-            _connection = GetConnection();
-            _channel = _connection.CreateModel();
+            _localFileWriter.Write(new LocalFileMessage(RabbitMQ, $"Reconnect Error: {ex.Message}"));
         }
+
     }
 
     private void Connection_ConnectionShutdown(object? sender, ShutdownEventArgs e)
     {
+        _localFileWriter.Write(new LocalFileMessage(RabbitMQ, e.ReplyText));
+    }
 
+    public void Dispose()
+    {
+        _onChangeToken?.Dispose();
     }
 }

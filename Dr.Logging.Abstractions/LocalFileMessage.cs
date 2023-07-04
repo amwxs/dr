@@ -1,3 +1,3 @@
 ﻿namespace Dr.Logging.Abstractions;
 
-public record LocalFileMessage(string LocalPath, string FileName, string Message);
+public record LocalFileMessage(string FileName, string Message);
