@@ -28,5 +28,6 @@ public class ConsoleColorPrint : IConsoleColorPrint
         Console.WriteLine("===================================================================================");
         Console.ForegroundColor = color;
         Console.WriteLine(structLog.ToIndentedJson());
+        Console.ForegroundColor = ConsoleColor.DarkGreen;
     }
 }
