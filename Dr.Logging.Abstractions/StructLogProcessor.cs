@@ -77,6 +77,7 @@ internal class StructLogProcessor : IStructLogProcessor, IDisposable
                 if (batchLogs.Count > 0)
                 {
                     _logSink.Write(batchLogs);
+
                     batchLogs.Clear();
                 }
                 else

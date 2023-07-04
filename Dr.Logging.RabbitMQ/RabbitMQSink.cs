@@ -1,13 +1,17 @@
 ﻿using Dr.Logging.Abstractions;
 
 namespace Dr.Logging.RabbitMQ;
-public class RabbitMQLogSink : ILogSink
+public class RabbitMQSink : ILogSink
 {
+    private readonly IMQClient _mQClient;
+
+    public RabbitMQSink(IMQClient mQClient)
+    {
+        _mQClient = mQClient;
+    }
+
     void ILogSink.Write(List<StructLog> structLogs)
     {
-        foreach (var log in structLogs)
-        {
-            Console.WriteLine(log.ToJson());
-        }
+        _mQClient.BasicPublish(structLogs);
     }
 }

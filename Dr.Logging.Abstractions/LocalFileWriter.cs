@@ -1,5 +1,5 @@
 ﻿namespace Dr.Logging.Abstractions;
-internal class LocalFileWriter : ILocalFileWriter
+public class LocalFileWriter : ILocalFileWriter
 {
     private const string _suffix = ".log";
     public void Write(LocalFileMessage localLog)

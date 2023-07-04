@@ -1,6 +1,6 @@
 ﻿namespace Dr.Logging.Abstractions;
 
-internal interface ILocalFileWriter
+public interface ILocalFileWriter
 {
     void Write(LocalFileMessage localLog);
 }
