@@ -7,5 +7,5 @@ public class RabbitMQOptions
     public string UserName { get; set; } = "guest";
     public string Password { get; set; } = "guest";
 
-    public string Exchange { get; set; } = "drlogs";
+    public string Exchange { get; set; } = "drlogs_exchange";
 } 
