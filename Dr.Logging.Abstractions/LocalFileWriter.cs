@@ -9,7 +9,22 @@ public class LocalFileWriter : ILocalFileWriter, IDisposable
     public LocalFileWriter(IOptionsMonitor<LoggerOptions> options)
     {
         _loggerOptions = options.CurrentValue;
-        _onChangeToken = options.OnChange(c => _loggerOptions = c);
+
+         CreateDirectory();
+        _onChangeToken = options.OnChange(c => 
+        {
+            _loggerOptions = c;
+            CreateDirectory();
+
+        });
+    }
+
+    private void CreateDirectory()
+    {
+        if (!Directory.Exists(_loggerOptions.LocalPath))
+        {
+            Directory.CreateDirectory(_loggerOptions.LocalPath);
+        }
     }
 
     private const string _suffix = ".log";
@@ -17,10 +32,6 @@ public class LocalFileWriter : ILocalFileWriter, IDisposable
     {
         try
         {
-            if (!Directory.Exists(_loggerOptions.LocalPath))
-            {
-                Directory.CreateDirectory(_loggerOptions.LocalPath);
-            }
             var fullFilePath = Path.Combine(_loggerOptions.LocalPath, localLog.FileName + localLog.CreateTime.ToString("yyyy-MM-dd") + _suffix);
 
             using var writer = new StreamWriter(fullFilePath, true);
@@ -30,6 +41,11 @@ public class LocalFileWriter : ILocalFileWriter, IDisposable
         {
             throw;
         }
+    }
+
+    public async Task Log(List<StructLog> structLogs)
+    {
+        
     }
 
 
