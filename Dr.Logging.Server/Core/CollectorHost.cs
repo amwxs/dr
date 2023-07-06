@@ -2,15 +2,24 @@
 
 public class CollectorHost : IHostedService
 {
-    public Task StartAsync(CancellationToken cancellationToken)
+    private readonly ICollectorProcessor _collector;
+
+    public CollectorHost(ICollectorProcessor collector)
     {
-        //取消息队列数据
-        //
-        throw new NotImplementedException();
+        _collector = collector;
     }
 
-    public Task StopAsync(CancellationToken cancellationToken)
+    public async Task StartAsync(CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        //取消息队列数据
+        _collector.Start();
+
+        await Task.CompletedTask;
+    }
+
+    public async Task StopAsync(CancellationToken cancellationToken)
+    {
+        _collector.Stop();
+        await Task.CompletedTask;
     }
 }

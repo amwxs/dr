@@ -15,7 +15,6 @@ public class LocalFileWriter : ILocalFileWriter, IDisposable
         {
             _loggerOptions = c;
             CreateDirectory();
-
         });
     }
 
@@ -42,12 +41,6 @@ public class LocalFileWriter : ILocalFileWriter, IDisposable
             throw;
         }
     }
-
-    public async Task Log(List<StructLog> structLogs)
-    {
-        
-    }
-
 
 
     public void Dispose()

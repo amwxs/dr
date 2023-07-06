@@ -1,6 +1,7 @@
 ﻿using Dr.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 using System.Text;
 
 namespace Dr.Logging.RabbitMQ;
@@ -78,6 +79,8 @@ public class MQClient : IMQClient, IDisposable
             _connection.ConnectionShutdown += Connection_ConnectionShutdown;
 
             _channel = _connection.CreateModel();
+
+            var consumer = new EventingBasicConsumer(_channel);
             _basicPublish = _channel.CreateBasicPublishBatch();
         }
         catch (Exception ex)
