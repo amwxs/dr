@@ -11,26 +11,60 @@ public class MQClient : IMQClient, IDisposable
     private readonly IDisposable? _onChangeToken;
     private readonly ILocalFileWriter _localFileWriter;
 
-    private IConnection _connection;
-    private IModel _channel;
+    private IConnection? _connection;
+    private IModel? _channel;
+    private IBasicPublishBatch? _basicPublish;
 
     public MQClient(IOptionsMonitor<RabbitMQOptions> options, ILocalFileWriter localFileWriter)
     {
         _options = options.CurrentValue;
         _onChangeToken = options.OnChange(c => { _options = c; });
         _localFileWriter = localFileWriter;
-
-        _connection = GetConnection();
-        _connection.ConnectionShutdown += Connection_ConnectionShutdown;
-        _channel = _connection.CreateModel();
-
+        Connect();
     }
 
+    public void BasicPublish(List<StructLog> structLogs)
+    {
+        if (_basicPublish == null)
+        {
+            if (!ReSetPublish())
+            {
+                //Note! MQ is disabel logs to local file
+                _localFileWriter.Log(new LocalFileMessage { FileName = "log", Message = structLogs.ToJson() });
+                return;
+            }
+        }
+        foreach (var log in structLogs)
+        {
+            var body = new ReadOnlyMemory<byte>(Encoding.UTF8.GetBytes(log.ToJson()));
+            _basicPublish.Add(_options.Exchange, string.Empty, false, null, body);
+        }
+        _basicPublish!.Publish();
+    }
 
-    private IConnection GetConnection()
+    private bool ReSetPublish()
+    {
+        if (_connection!.IsOpen)
+        {
+            if (_channel!.IsOpen)
+            {
+                _basicPublish = _channel.CreateBasicPublishBatch();
+            }
+            else
+            {
+                _channel?.Dispose();
+                _channel = _connection.CreateModel();
+                _basicPublish = _channel.CreateBasicPublishBatch();
+            }
+        }
+        return _basicPublish != null;
+    }
+
+    private void Connect()
     {
         try
         {
+
             var factory = new ConnectionFactory
             {
                 HostName = _options.HostName,
@@ -39,61 +73,32 @@ public class MQClient : IMQClient, IDisposable
                 UserName = _options.UserName,
                 Password = _options.Password
             };
-            return factory.CreateConnection();
-        }
-        catch (Exception ex)
-        {
-            _localFileWriter.Log(new LocalFileMessage { Message = $"Connection RabbitMQ Error: {ex.Message}" });
-            throw;
-        }
 
-    }
+            _connection = factory.CreateConnection();
+            _connection.ConnectionShutdown += Connection_ConnectionShutdown;
 
-
-
-    public void BasicPublish(List<StructLog> structLogs)
-    {
-        if (_channel.IsClosed)
-        {
-            Reconnect();
-        }
-
-        foreach (var log in structLogs)
-        {
-            var body = Encoding.UTF8.GetBytes(log.ToJson());
-
-            _channel.BasicPublish(_options.Exchange, string.Empty, _channel.CreateBasicProperties(), body);
-        }
-    }
-
-    private void Reconnect()
-    {
-        try
-        {
-            if (_connection.IsOpen)
-            {
-                _channel = _connection.CreateModel();
-            }
-            else
-            {
-                _connection = GetConnection();
-                _channel = _connection.CreateModel();
-            }
+            _channel = _connection.CreateModel();
+            _basicPublish = _channel.CreateBasicPublishBatch();
         }
         catch (Exception ex)
         {
             _localFileWriter.Log(new LocalFileMessage { Message = $"Reconnect Error: {ex.Message}" });
+            throw;
         }
 
     }
 
     private void Connection_ConnectionShutdown(object? sender, ShutdownEventArgs e)
     {
+        _basicPublish = null;
         _localFileWriter.Log(new LocalFileMessage { Message = e.ReplyText });
+
     }
 
     public void Dispose()
     {
+        _channel?.Dispose();
+        _connection?.Dispose();
         _onChangeToken?.Dispose();
     }
 }

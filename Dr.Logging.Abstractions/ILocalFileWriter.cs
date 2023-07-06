@@ -2,5 +2,5 @@
 
 public interface ILocalFileWriter
 {
-    void Log(LocalFileMessage localLog);
+    Task Log(LocalFileMessage localLog);
 }

@@ -43,6 +43,14 @@ using (var enchaner = ehancerAccessor.Create())
         logger.LogError("error hello{i}", i);
     }
 }
+Thread.Sleep(1000 * 60);
+for (int i = 0; i < 50; i++)
+{
+    logger.LogInformation("info hello{i}", i);
+    logger.LogWarning("warn hello{i}", i);
+    logger.LogError("error hello{i}", i);
+}
+
 //logger.LogInformation("Hello No AppId Infromation  测试下中文");
 
 

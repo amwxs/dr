@@ -13,7 +13,7 @@ public class LocalFileWriter : ILocalFileWriter, IDisposable
     }
 
     private const string _suffix = ".log";
-    public void Log(LocalFileMessage localLog)
+    public async  Task Log(LocalFileMessage localLog)
     {
         try
         {
@@ -24,7 +24,7 @@ public class LocalFileWriter : ILocalFileWriter, IDisposable
             var fullFilePath = Path.Combine(_loggerOptions.LocalPath, localLog.FileName + localLog.CreateTime.ToString("yyyy-MM-dd") + _suffix);
 
             using var writer = new StreamWriter(fullFilePath, true);
-            writer.WriteAsync($"datetime: {localLog.CreateTime} Message: {localLog.Message}");
+            await writer.WriteAsync($"datetime: {localLog.CreateTime} Message: {localLog.Message}");
         }
         catch (Exception)
         {

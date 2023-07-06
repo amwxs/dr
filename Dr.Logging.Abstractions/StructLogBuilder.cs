@@ -36,15 +36,6 @@ internal class StructLogBuilder : IStructLogBuilder
     }
 
 
-    public void AttachEnhancer(StructLog structLog)
-    {
-        var enhancer = CurrentLogEnhancer();
-        structLog.AppId = enhancer?.AppId;
-        structLog.TraceId = enhancer?.TraceId;
-        structLog.SpanId = enhancer?.SpanId;
-        structLog.ParentSpanId = enhancer?.ParentSpanId;
-    }
-
     private LogEnhancer? CurrentLogEnhancer()
     {
         var enhancer = _enhancerAccessor.Current;
