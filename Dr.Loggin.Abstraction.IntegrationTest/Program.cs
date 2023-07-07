@@ -31,15 +31,14 @@ using (var enchaner = ehancerAccessor.Create())
         ParentSpanId = Guid.NewGuid().ToString("N")
     });
 
-    logger.Log(LogLevel.Information, new EventId(100), new StructLog
-    {
-        Message = "Hello StructLog"
-    }, null, (l, e) => default!);
+    //logger.Log(LogLevel.Information, new EventId(100), new StructLog
+    //{
+    //    Message = "Hello StructLog"
+    //}, null, (l, e) => default!);
 
     for (int i = 0; i < 1000; i++)
     {
         logger.LogInformation("info hello{i}", i);
-        Thread.Sleep(50);
     }
 }
 

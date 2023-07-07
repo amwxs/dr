@@ -1,0 +1,47 @@
+PUT _index_template/drlogs-template
+{
+  "index_patterns": ["drlogs-*"],
+  
+  "template": {
+    "settings": {
+      "index": {
+        "number_of_shards": 1,
+        "number_of_replicas": 1
+      }
+    },
+    "mappings": {
+      "properties": {
+        "HostIp":{
+          "type":"keyword"
+        },
+        "AppId":{
+          "type":"keyword"
+        },
+        "TraceId":{
+          "type":"keyword"
+        },
+        "SpanId":{
+          "type":"keyword"
+        },
+        "ParentSpanId":{
+          "type":"keyword"
+        },
+        "LogLevel":{
+          "type":"integer"
+        },
+        "EventId":{
+          "type":"integer"
+        },
+        "Message":{
+          "type":"text"
+        },
+        "Exception":{
+          "type":"text"
+        },
+        "CreateTime":{
+          "type":"date"
+        }
+      }
+    }
+  }
+}

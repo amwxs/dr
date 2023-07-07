@@ -3,13 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33712.159
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dr.ServiceDiscover.Abstractions", "Dr.ServiceDiscover.Abstractions\Dr.ServiceDiscover.Abstractions.csproj", "{C208353D-A517-4E77-9127-3EB65FA1E232}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dr.ServiceDiscover.Consul", "Dr.ServiceDiscover.Consul\Dr.ServiceDiscover.Consul.csproj", "{A83FD75C-E979-43E0-9D95-8E45C7664130}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logging", "Logging", "{543339C0-B4CF-424F-B2E0-B378A5678141}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceDiscover", "ServiceDiscover", "{C8438429-1BC0-409C-A7E0-85FEAD61CC6B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dr.Logging.Abstractions", "Dr.Logging.Abstractions\Dr.Logging.Abstractions.csproj", "{9141B567-1E63-48DD-841C-CD49F7CA0CD6}"
 EndProject
@@ -27,14 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C208353D-A517-4E77-9127-3EB65FA1E232}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C208353D-A517-4E77-9127-3EB65FA1E232}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C208353D-A517-4E77-9127-3EB65FA1E232}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C208353D-A517-4E77-9127-3EB65FA1E232}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A83FD75C-E979-43E0-9D95-8E45C7664130}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A83FD75C-E979-43E0-9D95-8E45C7664130}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A83FD75C-E979-43E0-9D95-8E45C7664130}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A83FD75C-E979-43E0-9D95-8E45C7664130}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9141B567-1E63-48DD-841C-CD49F7CA0CD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9141B567-1E63-48DD-841C-CD49F7CA0CD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9141B567-1E63-48DD-841C-CD49F7CA0CD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -60,8 +46,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{C208353D-A517-4E77-9127-3EB65FA1E232} = {C8438429-1BC0-409C-A7E0-85FEAD61CC6B}
-		{A83FD75C-E979-43E0-9D95-8E45C7664130} = {C8438429-1BC0-409C-A7E0-85FEAD61CC6B}
 		{9141B567-1E63-48DD-841C-CD49F7CA0CD6} = {543339C0-B4CF-424F-B2E0-B378A5678141}
 		{1D206F84-9752-4388-859E-DFFAE06E0DAB} = {543339C0-B4CF-424F-B2E0-B378A5678141}
 		{2EDD7980-BFD7-4E62-A232-BF16FB6D5EB1} = {543339C0-B4CF-424F-B2E0-B378A5678141}
