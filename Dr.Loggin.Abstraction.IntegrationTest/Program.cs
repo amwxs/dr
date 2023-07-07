@@ -11,7 +11,7 @@ var serviceProvider = new ServiceCollection()
         builder.ClearProviders()
         .AddDrLogger(options =>
         {
-            options.IsConsolePrint = true;
+            //options.IsConsolePrint = true;
             options.LogLevel.Add("Default", LogLevel.Information);
         })
         .RabbitMQSink();
@@ -36,20 +36,13 @@ using (var enchaner = ehancerAccessor.Create())
         Message = "Hello StructLog"
     }, null, (l, e) => default!);
 
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i < 1000; i++)
     {
         logger.LogInformation("info hello{i}", i);
-        logger.LogWarning("warn hello{i}", i);
-        logger.LogError("error hello{i}", i);
+        Thread.Sleep(50);
     }
 }
-Thread.Sleep(1000 * 60);
-for (int i = 0; i < 50; i++)
-{
-    logger.LogInformation("info hello{i}", i);
-    logger.LogWarning("warn hello{i}", i);
-    logger.LogError("error hello{i}", i);
-}
+
 
 //logger.LogInformation("Hello No AppId Infromation  测试下中文");
 

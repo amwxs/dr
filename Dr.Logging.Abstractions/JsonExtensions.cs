@@ -22,5 +22,14 @@ namespace Dr.Logging.Abstractions
             jsonOptions ??= _indentedJsonOptions;
             return JsonSerializer.Serialize(obj, jsonOptions);
         }
+
+        public static T? FromJson<T>(this string str, JsonSerializerOptions? jsonOptions = null)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                return default;
+            }
+            return JsonSerializer.Deserialize<T>(str, jsonOptions);
+        }
     }
 }
