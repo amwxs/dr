@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Configuration;
@@ -24,6 +25,14 @@ public static class DependencyInjection
 
         return builder;
     }
+
+    public static ILoggingBuilder AddDrLogger(this ILoggingBuilder builder, IConfigurationSection section)
+    {
+        builder.Services.Configure<LoggerOptions>(section);
+        builder.AddDrLogger();
+        return builder;
+    }
+
     public static ILoggingBuilder AddDrLogger(this ILoggingBuilder builder, Action<LoggerOptions> configure)
     {
         builder.Services.Configure(configure);

@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dr.Logging.Abstraction.Inte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dr.Logging.Kafka", "Dr.Logging.Kafka\Dr.Logging.Kafka.csproj", "{B78FAFCB-0D79-4741-A33D-4BFF29ED4826}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dr.Logging.AspNetCore", "Dr.Logging.AspNetCore\Dr.Logging.AspNetCore.csproj", "{CE4EE67D-7F86-47C6-BC5A-36E41F213113}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{B78FAFCB-0D79-4741-A33D-4BFF29ED4826}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B78FAFCB-0D79-4741-A33D-4BFF29ED4826}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B78FAFCB-0D79-4741-A33D-4BFF29ED4826}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE4EE67D-7F86-47C6-BC5A-36E41F213113}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE4EE67D-7F86-47C6-BC5A-36E41F213113}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE4EE67D-7F86-47C6-BC5A-36E41F213113}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE4EE67D-7F86-47C6-BC5A-36E41F213113}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,6 +57,7 @@ Global
 		{2EDD7980-BFD7-4E62-A232-BF16FB6D5EB1} = {543339C0-B4CF-424F-B2E0-B378A5678141}
 		{25AECE72-76AC-43D1-8174-003AD89D4C70} = {543339C0-B4CF-424F-B2E0-B378A5678141}
 		{B78FAFCB-0D79-4741-A33D-4BFF29ED4826} = {543339C0-B4CF-424F-B2E0-B378A5678141}
+		{CE4EE67D-7F86-47C6-BC5A-36E41F213113} = {543339C0-B4CF-424F-B2E0-B378A5678141}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FE3D7734-85FD-4075-A0AC-D318622500C6}

@@ -44,7 +44,7 @@ internal class StructLogBuilder : IStructLogBuilder
             return default;
         }
 
-        if (!enhancer.Items.TryGetValue("logEnhancer", out var logEnhancer))
+        if (!enhancer.Items.TryGetValue(EnhancerConst.EnhancerTrace, out var logEnhancer))
         {
             return default;
         };
