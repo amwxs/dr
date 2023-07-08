@@ -9,7 +9,7 @@ namespace Dr.Logging.Abstractions
         private static readonly JsonSerializerOptions _indentedJsonOptions = new()
         {
             WriteIndented = true,
-            Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
         };
 
         public static string ToJson(this object obj, JsonSerializerOptions? jsonOptions = null)
