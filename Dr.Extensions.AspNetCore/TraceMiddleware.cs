@@ -35,7 +35,6 @@ public class TraceMiddleware
         try
         {
 
-
             log.Request.Path = context.Request.Path + context.Request.QueryString.Value;
             log.Request.Method = context.Request.Method;
             log.Request.Body = await ReadRequestBodyAsync(context.Request);
@@ -54,15 +53,18 @@ public class TraceMiddleware
             log.Response.StatusCode = context.Response.StatusCode;
             log.Response.Headers = context.Response.Headers.Select(x => $"{x.Key}:{x.Value}");
             log.Elapsed = stopwatch.ElapsedMilliseconds;
-            _logger.HttpTrace(log);
             await currentStream.CopyToAsync(originalBody);
 
         }
         catch (Exception ex)
         {
             log.Exception = ex.ToString();
-            _logger.HttpTrace(log);
+
             throw;
+        }
+        finally
+        {
+            _logger.HttpTrace(log);
         }
 
     }

@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-Management", "03-Managem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dr.Management", "Dr.Management\Dr.Management.csproj", "{C805336A-909D-4E63-817E-AB309F35E0AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dr.Extensions.Logging.Kafka", "Dr.Extensions.Logging.Kafka\Dr.Extensions.Logging.Kafka.csproj", "{DFD21948-59E4-4155-9EA3-EFC163F94B8D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{C805336A-909D-4E63-817E-AB309F35E0AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C805336A-909D-4E63-817E-AB309F35E0AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C805336A-909D-4E63-817E-AB309F35E0AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFD21948-59E4-4155-9EA3-EFC163F94B8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFD21948-59E4-4155-9EA3-EFC163F94B8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFD21948-59E4-4155-9EA3-EFC163F94B8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFD21948-59E4-4155-9EA3-EFC163F94B8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{7902539A-7D97-4E44-A5B5-84746D328583} = {0AD73D30-D1D0-46DD-979F-B2069739F4F0}
 		{4074EBFA-62A4-45DB-943C-385D3B535236} = {7511A8C9-4B94-4B16-A7D2-0D05F592FFD7}
 		{C805336A-909D-4E63-817E-AB309F35E0AE} = {14EB4385-4D4C-42C9-A329-9B62A0AF59C7}
+		{DFD21948-59E4-4155-9EA3-EFC163F94B8D} = {543339C0-B4CF-424F-B2E0-B378A5678141}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FE3D7734-85FD-4075-A0AC-D318622500C6}
