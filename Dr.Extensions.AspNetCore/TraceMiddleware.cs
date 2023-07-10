@@ -25,7 +25,7 @@ public class TraceMiddleware
         var enhancerTrace = BulidEnhancerTrace(context);
         enhancer.TryAdd(EnhancerConst.EnhancerTrace, enhancerTrace);
 
-        var log = new HttpTraceStructLog
+        var log = new AspNetCoreTraceStructLog
         {
             TraceId = enhancerTrace.TraceId,
             SpanId = enhancerTrace.SpanId,

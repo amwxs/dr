@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33712.159
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logging", "Logging", "{543339C0-B4CF-424F-B2E0-B378A5678141}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-Logging", "01-Logging", "{543339C0-B4CF-424F-B2E0-B378A5678141}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Components", "Components", "{7511A8C9-4B94-4B16-A7D2-0D05F592FFD7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-Components", "02-Components", "{7511A8C9-4B94-4B16-A7D2-0D05F592FFD7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{0AD73D30-D1D0-46DD-979F-B2069739F4F0}"
 EndProject
@@ -20,6 +20,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dr.Logging.AspNetCoreSample", "Dr.AspNetCoreSample\Dr.Logging.AspNetCoreSample.csproj", "{7902539A-7D97-4E44-A5B5-84746D328583}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dr.Extensions.AspNetCore", "Dr.Extensions.AspNetCore\Dr.Extensions.AspNetCore.csproj", "{4074EBFA-62A4-45DB-943C-385D3B535236}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-ServiceDiscovery", "04-ServiceDiscovery", "{631FA45E-935D-414A-8F7A-BF58D354585A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-Management", "03-Management", "{14EB4385-4D4C-42C9-A329-9B62A0AF59C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dr.Management", "Dr.Management\Dr.Management.csproj", "{C805336A-909D-4E63-817E-AB309F35E0AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +57,10 @@ Global
 		{4074EBFA-62A4-45DB-943C-385D3B535236}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4074EBFA-62A4-45DB-943C-385D3B535236}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4074EBFA-62A4-45DB-943C-385D3B535236}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C805336A-909D-4E63-817E-AB309F35E0AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C805336A-909D-4E63-817E-AB309F35E0AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C805336A-909D-4E63-817E-AB309F35E0AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C805336A-909D-4E63-817E-AB309F35E0AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +72,7 @@ Global
 		{99A70149-F8E5-450B-AF59-0F6D572E63DA} = {543339C0-B4CF-424F-B2E0-B378A5678141}
 		{7902539A-7D97-4E44-A5B5-84746D328583} = {0AD73D30-D1D0-46DD-979F-B2069739F4F0}
 		{4074EBFA-62A4-45DB-943C-385D3B535236} = {7511A8C9-4B94-4B16-A7D2-0D05F592FFD7}
+		{C805336A-909D-4E63-817E-AB309F35E0AE} = {14EB4385-4D4C-42C9-A329-9B62A0AF59C7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FE3D7734-85FD-4075-A0AC-D318622500C6}

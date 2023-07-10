@@ -1,7 +1,7 @@
 ﻿using Dr.Extensions.Logging.Abstractions;
 
 namespace Dr.Logging.AspNetCore;
-public class HttpTraceStructLog: StructLog
+public class AspNetCoreTraceStructLog: StructLog
 {
     public Request Request { get; set; } = new();
 
