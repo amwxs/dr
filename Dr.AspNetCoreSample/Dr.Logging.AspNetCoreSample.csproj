@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Dr.Extensions.AspNetCore\Dr.Extensions.AspNetCore.csproj" />
+    <ProjectReference Include="..\Dr.Extensions.Logging.RabbitMQ\Dr.Extensions.Logging.RabbitMQ.csproj" />
   </ItemGroup>
 
 </Project>

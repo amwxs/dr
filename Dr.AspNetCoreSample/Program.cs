@@ -1,4 +1,5 @@
 using Dr.Extensions.Logging.Abstractions;
+using Dr.Extensions.Logging.RabbitMQ;
 using Dr.Logging.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,7 @@ builder.Host.ConfigureLogging(c =>
     {
         o.IsConsolePrint = true;
         o.LogLevel.Add("Default", LogLevel.Information);
-    });
+    }).AddRabbitMQSink();
 });
 
 // Add services to the container.

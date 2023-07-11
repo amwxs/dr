@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 namespace Dr.Extensions.Logging.RabbitMQ;
 public static class DependencyInjection
 {
-    public static ILoggingBuilder RabbitMQSink(this ILoggingBuilder builder)
+    public static ILoggingBuilder AddRabbitMQSink(this ILoggingBuilder builder)
     {
         builder.Services.TryAddSingleton<IMQClient, MQClient>();
         builder.Services.RemoveAll<ILogSink>();
@@ -15,17 +15,17 @@ public static class DependencyInjection
         return builder;
     }
 
-    public static ILoggingBuilder RabbitMQSink(this ILoggingBuilder builder, IConfigurationSection section)
+    public static ILoggingBuilder AddRabbitMQSink(this ILoggingBuilder builder, IConfigurationSection section)
     {
         builder.Services.Configure<RabbitMQOptions>(section);
-        builder.RabbitMQSink();
+        builder.AddRabbitMQSink();
         return builder;
     }
 
-    public static ILoggingBuilder RabbitMQSink(this ILoggingBuilder builder, Action<RabbitMQOptions> configure)
+    public static ILoggingBuilder AddRabbitMQSink(this ILoggingBuilder builder, Action<RabbitMQOptions> configure)
     {
         builder.Services.Configure(configure);
-        builder.RabbitMQSink();
+        builder.AddRabbitMQSink();
         return builder;
     }
 }

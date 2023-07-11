@@ -15,7 +15,7 @@ var serviceProvider = new ServiceCollection()
             //options.IsConsolePrint = true;
             options.LogLevel.Add("Default", LogLevel.Information);
         })
-        .RabbitMQSink();
+        .AddRabbitMQSink();
     }).BuildServiceProvider();
 
 var loggerFactor = serviceProvider.GetRequiredService<ILoggerFactory>();
