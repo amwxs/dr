@@ -1,5 +1,4 @@
 using Dr.Extensions.Logging.Abstractions;
-using Dr.Extensions.Logging.RabbitMQ;
 using Dr.Management;
 using Dr.Management.Data;
 using System.Reflection;
@@ -10,6 +9,7 @@ builder.Host.ConfigureLogging(c =>
     c.ClearProviders()
     .AddDrLogger(c =>
     {
+        c.AppId = "dr.logging.management";
         c.IsConsolePrint = true;
         c.LogLevel.Add("Default", LogLevel.Information);
     });

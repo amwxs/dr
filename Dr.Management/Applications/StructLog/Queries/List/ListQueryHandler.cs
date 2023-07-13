@@ -1,7 +1,6 @@
 ﻿using Dr.Management.Core;
 using Dr.Management.Core.Entities;
 using Dr.Management.Data;
-using Elasticsearch.Net;
 using MediatR;
 using Nest;
 
@@ -85,7 +84,6 @@ public class ListQueryHandler : IRequestHandler<ListQuery, CustResult<List<BaseL
             q.Add(new MatchQuery { Field = "Request.Headers", Query = request.RequestHeader });
         }
 
-
         if (request.ResponseStatusCode != -999)
         {
             q.Add(new TermQuery { Field = "Response.StatusCode", Value = request.ResponseStatusCode });
@@ -115,20 +113,21 @@ public class ListQueryHandler : IRequestHandler<ListQuery, CustResult<List<BaseL
             }
         };
 
-       
         var res = await client.SearchAsync<BaseLog>(search, cancellationToken);
-        if (res.IsValid)
+        if (!res.IsValid)
         {
-            var logs = new List<BaseLog>();
-            foreach (var hit in res.Hits)
-            {
-               var log =  hit.Source;
-               log.Id = hit.Id;
-               logs.Add(log);
-            }
-            return CustResult.Success(logs, new Pager(request.PageIndex, request.PageSize, res.Total));
+            var errorReason = res.OriginalException?.Message ?? res.ServerError?.ToString() ?? string.Empty;
+            return CustResult.Failure<List<BaseLog>>("4000", errorReason, null);
         }
-        var errorReason = res.OriginalException?.Message ?? res.ServerError?.ToString() ?? string.Empty;
-        return CustResult.Failure<List<BaseLog>>("4000", errorReason, null);
+
+        var logs = new List<BaseLog>();
+        foreach (var hit in res.Hits)
+        {
+            var log = hit.Source;
+            log.Id = hit.Id;
+            logs.Add(log);
+        }
+        return CustResult.Success(logs, new Pager(request.PageIndex, request.PageSize, res.Total));
+
     }
 }

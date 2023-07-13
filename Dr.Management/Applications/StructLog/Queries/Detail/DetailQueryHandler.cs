@@ -29,7 +29,7 @@ public class DetailQueryHandler : IRequestHandler<DetailQuery, CustResult<Entire
                 Must = q
             }
         };
-        var res = await client.GetAsync<EntireLog>(request.Id,c=>c.Index("drlogs-2023.07.13"));
+        var res = await client.GetAsync<EntireLog>(request.Id, c => c.Index("drlogs"), cancellationToken);
         if (!res.IsValid)
         {
             var errorReason = res.OriginalException?.Message ?? res.ServerError?.ToString();

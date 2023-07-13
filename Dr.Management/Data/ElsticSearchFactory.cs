@@ -1,5 +1,4 @@
-﻿using Dr.Management.Core.Entities;
-using Elasticsearch.Net;
+﻿using Elasticsearch.Net;
 using Microsoft.Extensions.Options;
 using Nest;
 
@@ -9,10 +8,9 @@ public class ElsticSearchFactory : IElsticSearchFactory
 {
     private readonly ElasticOptioins _elasticOptioins;
     private ElasticClient? _elasticClient;
-
-    public ElsticSearchFactory(IOptionsMonitor<ElasticOptioins> options)
+    public ElsticSearchFactory(IOptions<ElasticOptioins> options)
     {
-        _elasticOptioins = options.CurrentValue;
+        _elasticOptioins = options.Value;
     }
 
     public ElasticClient Create()
@@ -21,6 +19,11 @@ public class ElsticSearchFactory : IElsticSearchFactory
         {
             return _elasticClient;
         }
+
+        if (string.IsNullOrEmpty(_elasticOptioins.Url))
+        {
+            throw new ArgumentNullException("Elasticsearch url is null or empty!");
+        }
         lock (this)
         {
             if (_elasticClient == null)
@@ -28,6 +31,7 @@ public class ElsticSearchFactory : IElsticSearchFactory
                 var pool = new SingleNodeConnectionPool(new Uri(_elasticOptioins.Url));
 
                 var settings = new ConnectionSettings(pool);
+                settings.BasicAuthentication(_elasticOptioins.UserName, _elasticOptioins.Password);
                 _elasticClient = new ElasticClient(settings);
             }
         }

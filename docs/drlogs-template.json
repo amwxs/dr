@@ -1,45 +1,72 @@
 PUT _index_template/drlogs-template
 {
   "index_patterns": ["drlogs-*"],
-  
+
   "template": {
+    "aliases": {
+      "drlogs": {}
+    }, 
     "settings": {
-      "index": {
-        "number_of_shards": 1,
-        "number_of_replicas": 1
-      }
+      "number_of_shards": 1,
+      "number_of_replicas": 1
     },
     "mappings": {
-      "properties": {
-        "HostIp":{
-          "type":"keyword"
+      "properties" : {
+        "AppId": {
+          "type": "keyword"
         },
-        "AppId":{
-          "type":"keyword"
+        "CreateTime": {
+          "type": "date"
         },
-        "TraceId":{
-          "type":"keyword"
+        "Elapsed": {
+          "type": "long"
         },
-        "SpanId":{
-          "type":"keyword"
+        "EventId": {
+          "type": "long"
         },
-        "ParentSpanId":{
-          "type":"keyword"
+        "HostIp": {
+          "type": "keyword"
         },
-        "LogLevel":{
-          "type":"integer"
+        "LogLevel": {
+          "type": "long"
         },
-        "EventId":{
-          "type":"integer"
+        "Message": {
+          "type": "text"
         },
-        "Message":{
-          "type":"text"
+        "Request": {
+          "properties": {
+            "Body": {
+              "type": "text"
+            },
+            "Method": {
+              "type": "keyword"
+            },
+            "Path": {
+              "type": "text"
+            },
+            "Headers": {
+              "type": "text"
+            }
+          }
         },
-        "Exception":{
-          "type":"text"
+        "Response": {
+          "properties": {
+            "Body": {
+              "type": "text"
+            },
+            "StatusCode": {
+              "type": "long"
+            },
+            "Headers": {
+              "type": "text"
+            }
+          }
         },
-        "CreateTime":{
-          "type":"date"
+        "SpanId": {
+          "type": "keyword"
+        },
+        "TraceId": {
+          "type": "keyword"
         }
       }
     }

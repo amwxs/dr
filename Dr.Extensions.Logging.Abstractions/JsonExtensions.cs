@@ -10,7 +10,6 @@ namespace Dr.Extensions.Logging.Abstractions
             WriteIndented = true,
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
         };
-
         public static string ToJson(this object obj, JsonSerializerOptions? jsonOptions = null)
         {
             return JsonSerializer.Serialize(obj, jsonOptions);
