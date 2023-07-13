@@ -9,6 +9,7 @@ builder.Host.ConfigureLogging(c =>
     c.ClearProviders();
     c.AddDrLogger(o =>
     {
+        o.AppId = "dr.logging.sample";
         o.IsConsolePrint = true;
         o.LogLevel.Add("Default", LogLevel.Information);
     }).AddRabbitMQSink();

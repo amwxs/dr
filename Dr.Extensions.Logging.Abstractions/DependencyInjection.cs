@@ -19,6 +19,7 @@ public static class DependencyInjection
         builder.Services.TryAddSingleton<IStructLogProcessor, StructLogProcessor>();
 
         builder.Services.TryAddSingleton<IHostInformation, HostInformation>();
+        builder.Services.TryAddSingleton<IDateTimeProvider, DateTimeProvider>();
 
         LoggerProviderOptions.RegisterProviderOptions<LoggerOptions, LoggerProvider>(builder.Services);
         builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, LoggerProvider>());

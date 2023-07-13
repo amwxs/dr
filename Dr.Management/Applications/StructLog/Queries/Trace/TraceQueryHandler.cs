@@ -6,7 +6,7 @@ using Nest;
 
 namespace Dr.Management.Applications.StructLog.Queries.Trace;
 
-public class TraceQueryHandler : IRequestHandler<TraceQuery, CustResult<List<TreeLog>>>
+public class TraceQueryHandler : IRequestHandler<TraceQuery, CustResult<List<TraceLog>>>
 {
     private readonly IElsticSearchFactory _elsticSearchFactory;
 
@@ -15,7 +15,7 @@ public class TraceQueryHandler : IRequestHandler<TraceQuery, CustResult<List<Tre
         _elsticSearchFactory = elsticSearchFactory;
     }
 
-    public async Task<CustResult<List<TreeLog>>> Handle(TraceQuery request, CancellationToken cancellationToken)
+    public async Task<CustResult<List<TraceLog>>> Handle(TraceQuery request, CancellationToken cancellationToken)
     {
         var client = _elsticSearchFactory.Create();
         var q = new List<QueryContainer>()
@@ -28,26 +28,38 @@ public class TraceQueryHandler : IRequestHandler<TraceQuery, CustResult<List<Tre
             {
                 Must = q
             },
-            Size = int.MaxValue
+            Source = new SourceFilter
+            {
+                Excludes = new[] { "@timestamp", "@version", "Response", "Request", "Message", "Exception" }
+            }
         };
-        var res = await client.SearchAsync<TreeLog>(searchRequest, cancellationToken);
+        var res = await client.SearchAsync<TraceLog>(searchRequest, cancellationToken);
         if (!res.IsValid)
         {
             var errorReason = res.OriginalException?.Message ?? res.ServerError?.ToString();
-            return CustResult.Failure<List<TreeLog>>("4000", errorReason ?? string.Empty, null);
+            return CustResult.Failure<List<TraceLog>>("4000", errorReason ?? string.Empty, null);
         }
-        var logs = res.Documents.OrderBy(x => x.CreateTime).ToList();
-        //找出ParentId为空的
-        var rootLogs = logs.Where(x => string.IsNullOrEmpty(x.ParentSpanId)).ToList();
-        foreach (var log in rootLogs)
+
+        var logs = new List<TraceLog>();
+        foreach (var hit in res.Hits)
+        {
+            var log = hit.Source;
+            log.Id = hit.Id;
+            logs.Add(log);
+        }
+
+        var roots = logs.Where(x => string.IsNullOrEmpty(x.ParentSpanId))
+            .OrderBy(x => x.CreateTime).ToList();
+
+        foreach (var log in roots)
         {
             //查找子元素
             BuildTree(log, logs);
         }
-        return CustResult.Success(rootLogs);
+        return CustResult.Success(roots);
     }
 
-    private void BuildTree(TreeLog parentLog, List<TreeLog> logs)
+    private void BuildTree(TraceLog parentLog, List<TraceLog> logs)
     {
         if (string.IsNullOrEmpty(parentLog.SpanId))
         {
@@ -58,7 +70,7 @@ public class TraceQueryHandler : IRequestHandler<TraceQuery, CustResult<List<Tre
         {
             return;
         }
-        parentLog.SubLogs = sublogs.ToList();
+        parentLog.Subs = sublogs.ToList();
 
         foreach (var log in sublogs)
         {

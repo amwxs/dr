@@ -37,8 +37,9 @@ public class TraceMiddleware
 
             log.Request.Path = context.Request.Path + context.Request.QueryString.Value;
             log.Request.Method = context.Request.Method;
+            log.Request.Headers = ConvertHeaderToStringList(context.Request.Headers);
             log.Request.Body = await ReadRequestBodyAsync(context.Request);
-            log.Request.Headers = context.Request.Headers.Select(x =>$"{x.Key}:{x.Value}");
+
 
             //响应流
             using var currentStream = new MemoryStream();
@@ -47,11 +48,11 @@ public class TraceMiddleware
 
             var stopwatch = Stopwatch.StartNew();
             await _next(context);
-            stopwatch.Stop();   
+            stopwatch.Stop();
 
-            log.Response.Body = await ReadResponseBodyAsync(context.Response);
             log.Response.StatusCode = context.Response.StatusCode;
-            log.Response.Headers = context.Response.Headers.Select(x => $"{x.Key}:{x.Value}");
+            log.Response.Headers = ConvertHeaderToStringList(context.Response.Headers);
+            log.Response.Body = await ReadResponseBodyAsync(context.Response);
             log.Elapsed = stopwatch.ElapsedMilliseconds;
             await currentStream.CopyToAsync(originalBody);
 
@@ -69,6 +70,16 @@ public class TraceMiddleware
 
     }
 
+    private static List<string> ConvertHeaderToStringList(IHeaderDictionary headers)
+    {
+        var list = new List<string>();
+        foreach (var header in headers)
+        {
+            list.Add($"{header.Key}:{header.Value}");
+        }
+        return list;
+    }
+
     private static LogEnhancer BulidEnhancerTrace(HttpContext context)
     {
         var enhancer = new LogEnhancer();
@@ -76,22 +87,18 @@ public class TraceMiddleware
         if (!context.Request.Headers.TryGetValue(EnhancerConst.TraceId, out var traceId) || string.IsNullOrEmpty(traceId))
         {
             traceId = Guid.NewGuid().ToString("N");
-            //context.Request.Headers.TryAdd(EnhancerConst.TraceId, traceId);
         }
        
 
         if (!context.Request.Headers.TryGetValue(EnhancerConst.SpanId, out var spanId) || string.IsNullOrEmpty(spanId))
         {
             spanId = Guid.NewGuid().ToString("N");
-            //context.Request.Headers.TryAdd(EnhancerConst.SpanId, spanId);
         }
         else
         {
             enhancer.ParentSpanId = spanId;
 
-            spanId = Guid.NewGuid().ToString("N");
-            //context.Request.Headers.Remove(EnhancerConst.SpanId);
-            //context.Request.Headers.TryAdd(EnhancerConst.SpanId, spanId);
+            spanId = Guid.NewGuid().ToString("N");;
         }
         enhancer.TraceId = traceId;
         enhancer.SpanId = spanId;

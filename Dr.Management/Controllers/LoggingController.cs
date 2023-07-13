@@ -24,8 +24,8 @@ public class LoggingController : ControllerBase
         return await _sender.Send(query);
     }
 
-    [HttpPost("trace")]
-    public async Task<CustResult<List<TreeLog>>> Trace([FromQuery] TraceQuery query)
+    [HttpGet("trace")]
+    public async Task<CustResult<List<TraceLog>>> Trace([FromQuery] TraceQuery query)
     {
         return await _sender.Send(query);
     }

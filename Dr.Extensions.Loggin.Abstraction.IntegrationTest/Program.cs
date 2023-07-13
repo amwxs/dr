@@ -26,7 +26,6 @@ using (var enchaner = ehancerAccessor.Create())
 {
     enchaner.TryAdd(EnhancerConst.EnhancerTrace, new LogEnhancer 
     {
-        AppId= Guid.NewGuid().ToString("N"),
         TraceId = Guid.NewGuid().ToString("N"),
         SpanId = Guid.NewGuid().ToString("N"),
         ParentSpanId = Guid.NewGuid().ToString("N")

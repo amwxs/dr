@@ -14,13 +14,13 @@ public class Request
     public string? Path { get; set; }
     public string? Method { get; set; }
     public string? Body { get; set; }
-    public IEnumerable<string>? Headers { get; set; }
+    public List<string>? Headers { get; set; }
 }
 
 public class Response
 {
     public int StatusCode { get; set; }
     public string? Body { get; set; }
-    public IEnumerable<string>? Headers { get; set; }
+    public List<string>? Headers { get; set; }
 }
 

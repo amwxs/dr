@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Dr.Management.Core.Entities;
+using Elasticsearch.Net;
+using Microsoft.Extensions.Options;
 using Nest;
 
 namespace Dr.Management.Data;
@@ -23,8 +25,9 @@ public class ElsticSearchFactory : IElsticSearchFactory
         {
             if (_elasticClient == null)
             {
-                var node = new Uri(_elasticOptioins.Url);
-                var settings = new ConnectionSettings(node);
+                var pool = new SingleNodeConnectionPool(new Uri(_elasticOptioins.Url));
+
+                var settings = new ConnectionSettings(pool);
                 _elasticClient = new ElasticClient(settings);
             }
         }

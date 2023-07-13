@@ -1,6 +1,7 @@
 ﻿using Dr.Management.Core;
 using Dr.Management.Core.Entities;
 using Dr.Management.Data;
+using Elasticsearch.Net;
 using MediatR;
 using Nest;
 
@@ -18,6 +19,7 @@ public class ListQueryHandler : IRequestHandler<ListQuery, CustResult<List<BaseL
     public async Task<CustResult<List<BaseLog>>> Handle(ListQuery request, CancellationToken cancellationToken)
     {
         var client = _elsticSearchFactory.Create();
+
         var q = new List<QueryContainer>();
 
         #region Query Conditions
@@ -98,7 +100,7 @@ public class ListQueryHandler : IRequestHandler<ListQuery, CustResult<List<BaseL
         }
         #endregion
 
-        var search = new SearchRequest("drlogs-")
+        var search = new SearchRequest("drlogs-*")
         {
 
             Query = new BoolQuery
@@ -109,14 +111,22 @@ public class ListQueryHandler : IRequestHandler<ListQuery, CustResult<List<BaseL
             Size = request.PageSize,
             Source = new SourceFilter
             {
-                Excludes = new[] { "@version", "Response", "Request", "Message", "Exception" },
+                Excludes = new[] { "@timestamp", "@version", "Response", "Request", "Message", "Exception" }
             }
         };
-        var res = await client.SearchAsync<object>(search, cancellationToken);
+
+       
+        var res = await client.SearchAsync<BaseLog>(search, cancellationToken);
         if (res.IsValid)
         {
-
-            return CustResult.Success(new List<BaseLog>(), new Pager(request.PageIndex, request.PageSize, res.Total));
+            var logs = new List<BaseLog>();
+            foreach (var hit in res.Hits)
+            {
+               var log =  hit.Source;
+               log.Id = hit.Id;
+               logs.Add(log);
+            }
+            return CustResult.Success(logs, new Pager(request.PageIndex, request.PageSize, res.Total));
         }
         var errorReason = res.OriginalException?.Message ?? res.ServerError?.ToString() ?? string.Empty;
         return CustResult.Failure<List<BaseLog>>("4000", errorReason, null);

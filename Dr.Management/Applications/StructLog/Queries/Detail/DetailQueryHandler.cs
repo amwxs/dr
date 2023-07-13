@@ -29,21 +29,15 @@ public class DetailQueryHandler : IRequestHandler<DetailQuery, CustResult<Entire
                 Must = q
             }
         };
-        var res = await client.SearchAsync<EntireLog>(searchRequest);
-        if (res.IsValid)
+        var res = await client.GetAsync<EntireLog>(request.Id,c=>c.Index("drlogs-2023.07.13"));
+        if (!res.IsValid)
         {
-            var log = res.Documents.FirstOrDefault();
-            if (log != null)
-            {
-                return CustResult.Success(log);
-            }
-            else
-            {
-                return CustResult.Failure<EntireLog>("4000", $"Id {request.Id} Not exits ", null);
-            }
-
+            var errorReason = res.OriginalException?.Message ?? res.ServerError?.ToString();
+            return CustResult.Failure<EntireLog>("4000", errorReason ?? string.Empty, null);
         }
-        var errorReason = res.OriginalException?.Message ?? res.ServerError?.ToString();
-        return CustResult.Failure<EntireLog>("4000", errorReason ?? string.Empty, null);
+        var log = res.Source;
+        log.Id = res.Id;
+        return CustResult.Success(log);
+
     }
 }

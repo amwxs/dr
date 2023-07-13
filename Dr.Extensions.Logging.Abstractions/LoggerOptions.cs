@@ -3,6 +3,7 @@
 namespace Dr.Extensions.Logging.Abstractions;
 public class LoggerOptions
 {
+    public string? AppId { get; set; }
     public Dictionary<string, LogLevel> LogLevel { get; set; } = new();
     public int QueuecCapacity { get;  set; } = 10000;
     public int BatchSize { get; set; } = 500;

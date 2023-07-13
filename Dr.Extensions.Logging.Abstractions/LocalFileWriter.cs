@@ -5,17 +5,18 @@ public class LocalFileWriter : ILocalFileWriter, IDisposable
 {
     private LoggerOptions _loggerOptions;
     private readonly IDisposable? _onChangeToken;
-
-    public LocalFileWriter(IOptionsMonitor<LoggerOptions> options)
+    private readonly IDateTimeProvider _dateTimeProvider;
+    public LocalFileWriter(IOptionsMonitor<LoggerOptions> options, IDateTimeProvider dateTimeProvider)
     {
         _loggerOptions = options.CurrentValue;
 
-         CreateDirectory();
-        _onChangeToken = options.OnChange(c => 
+        CreateDirectory();
+        _onChangeToken = options.OnChange(c =>
         {
             _loggerOptions = c;
             CreateDirectory();
         });
+        _dateTimeProvider = dateTimeProvider;
     }
 
     private void CreateDirectory()
@@ -31,10 +32,11 @@ public class LocalFileWriter : ILocalFileWriter, IDisposable
     {
         try
         {
-            var fullFilePath = Path.Combine(_loggerOptions.LocalPath, localLog.FileName + localLog.CreateTime.ToString("yyyy-MM-dd") + _suffix);
+            
+            var fullFilePath = Path.Combine(_loggerOptions.LocalPath, localLog.FileName + _dateTimeProvider.Current.ToString("yyyy-MM-dd") + _suffix);
 
             using var writer = new StreamWriter(fullFilePath, true);
-            await writer.WriteAsync($"datetime: {localLog.CreateTime} Message: {localLog.Message}");
+            await writer.WriteAsync($"datetime: {_dateTimeProvider.Current} Message: {localLog.Message}");
         }
         catch (Exception)
         {
