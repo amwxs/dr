@@ -1,6 +1,6 @@
 ﻿namespace Dr.Extensions.Logging.Abstractions;
 
-internal interface IStructLogProcessor
+public interface IStructLogProcessor: IDisposable
 {
     void AddLog(StructLog structLog);
 

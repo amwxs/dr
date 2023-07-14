@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Options;
 
 namespace Dr.Extensions.Logging.Abstractions;
-internal class StructLogBuilder : IStructLogBuilder, IDisposable
+internal class StructLogBuilder : IStructLogBuilder
 {
     private readonly IEnhancerAccessor _enhancerAccessor;
     private readonly IHostInformation _hostInformation;

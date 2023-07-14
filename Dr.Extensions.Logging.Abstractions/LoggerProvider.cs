@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 
 namespace Dr.Extensions.Logging.Abstractions;
-internal class LoggerProvider : ILoggerProvider
+public class LoggerProvider : ILoggerProvider
 {
     private readonly ConcurrentDictionary<string, Logger> _loggers = new();
     private readonly ILogLevelFilter _logLevelFilter;
@@ -27,6 +27,8 @@ internal class LoggerProvider : ILoggerProvider
 
     public void Dispose()
     {
-
+        _structLogProcessor?.Dispose();
+        _structLogBuilder?.Dispose();
+        _logLevelFilter?.Dispose();
     }
 }

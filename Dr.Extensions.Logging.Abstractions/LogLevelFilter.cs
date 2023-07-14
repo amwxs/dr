@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
 
 namespace Dr.Extensions.Logging.Abstractions;
-internal class LogLevelFilter : ILogLevelFilter, IDisposable
+internal class LogLevelFilter : ILogLevelFilter
 {
     private readonly ConcurrentDictionary<string, LogLevel> _loggerLogLevels = new();
     private readonly IDisposable? _onChangeToken;

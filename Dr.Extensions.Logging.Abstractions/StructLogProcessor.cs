@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 
 namespace Dr.Extensions.Logging.Abstractions;
-internal class StructLogProcessor : IStructLogProcessor, IDisposable
+public class StructLogProcessor : IStructLogProcessor
 {
     private LoggerOptions _loggerOptions;
     private readonly IConsoleColorPrint _consoleColorPrint;

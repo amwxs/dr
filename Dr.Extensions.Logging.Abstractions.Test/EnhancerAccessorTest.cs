@@ -2,7 +2,7 @@
 public class EnhancerAccessorTest
 {
     [Fact]
-    public void EnhancerAccessorCreateTest()
+    public void Create_Twice_Enhancer_Should_Equal()
     {
         var enhancerAccessor = new EnhancerAccessor();
         var enhancer1 = enhancerAccessor.Create();

@@ -1,6 +1,6 @@
 ﻿namespace Dr.Extensions.Logging.Abstractions;
 
-internal interface IConsoleColorPrint
+public interface IConsoleColorPrint
 {
     void Print(StructLog structLog);
 }
