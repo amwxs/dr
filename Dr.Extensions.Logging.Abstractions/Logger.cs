@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 
 namespace Dr.Extensions.Logging.Abstractions;
-internal class Logger : ILogger
+public class Logger : ILogger
 {
     private readonly string _categoryName;
     private readonly ILogLevelFilter _logLevelFilter;
