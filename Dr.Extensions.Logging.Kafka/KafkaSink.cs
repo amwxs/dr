@@ -1,7 +1,7 @@
 ﻿using Dr.Extensions.Logging.Abstractions;
 
 namespace Dr.Extensions.Logging.Kafka;
-internal class KafkaSink : ILogSink
+internal class KafkaSink : ISink
 {
     private readonly IKafkaClient _kafkaClient;
 

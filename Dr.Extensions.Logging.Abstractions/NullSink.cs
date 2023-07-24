@@ -1,5 +1,5 @@
 ﻿namespace Dr.Extensions.Logging.Abstractions;
-internal class NullLogSink : ILogSink
+internal class NullSink : ISink
 {
     public void Write(List<StructLog> structLogs)
     {

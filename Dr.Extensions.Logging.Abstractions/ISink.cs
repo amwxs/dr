@@ -1,5 +1,5 @@
 ﻿namespace Dr.Extensions.Logging.Abstractions;
-public interface ILogSink
+public interface ISink
 {
     void Write(List<StructLog> structLogs);
 }

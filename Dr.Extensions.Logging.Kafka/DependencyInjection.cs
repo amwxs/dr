@@ -10,8 +10,8 @@ public static class DependencyInjection
     public static ILoggingBuilder KafkaSink(this ILoggingBuilder builder)
     {
         builder.Services.TryAddSingleton<IKafkaClient, KafkaClient>();
-        builder.Services.RemoveAll<ILogSink>();
-        builder.Services.AddSingleton<ILogSink, KafkaSink>();
+        builder.Services.RemoveAll<ISink>();
+        builder.Services.AddSingleton<ISink, KafkaSink>();
 
         return builder;
     }

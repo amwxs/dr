@@ -10,8 +10,8 @@ public static class DependencyInjection
     public static ILoggingBuilder AddRabbitMQSink(this ILoggingBuilder builder)
     {
         builder.Services.TryAddSingleton<IMQClient, MQClient>();
-        builder.Services.RemoveAll<ILogSink>();
-        builder.Services.AddSingleton<ILogSink, RabbitMQSink>();
+        builder.Services.RemoveAll<ISink>();
+        builder.Services.AddSingleton<ISink, RabbitMQSink>();
         return builder;
     }
 

@@ -1,7 +1,7 @@
 ﻿using Dr.Extensions.Logging.Abstractions;
 
 namespace Dr.Extensions.Logging.RabbitMQ;
-public class RabbitMQSink : ILogSink
+public class RabbitMQSink : ISink
 {
     private readonly IMQClient _mQClient;
 
@@ -10,7 +10,7 @@ public class RabbitMQSink : ILogSink
         _mQClient = mQClient;
     }
 
-    void ILogSink.Write(List<StructLog> structLogs)
+    void ISink.Write(List<StructLog> structLogs)
     {
         _mQClient.BasicPublish(structLogs);
     }

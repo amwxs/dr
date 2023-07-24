@@ -1,11 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Collections.Concurrent;
 
 namespace Dr.Extensions.Logging.Abstractions;
 internal class LogLevelFilter : ILogLevelFilter
 {
-    private readonly ConcurrentDictionary<string, LogLevel> _loggerLogLevels = new();
     private readonly IDisposable? _onChangeToken;
     private LoggerOptions _loggerOptions;
     public LogLevelFilter(IOptionsMonitor<LoggerOptions> options)

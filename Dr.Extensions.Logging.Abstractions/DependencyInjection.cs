@@ -10,7 +10,7 @@ public static class DependencyInjection
     public static ILoggingBuilder AddDrLogger(this ILoggingBuilder builder)
     {
         builder.AddConfiguration();
-        builder.Services.TryAddSingleton<ILogSink, NullLogSink>();
+        builder.Services.TryAddSingleton<ISink, NullSink>();
         builder.Services.TryAddSingleton<IConsoleColorPrint, ConsoleColorPrint>();
         builder.Services.TryAddSingleton<ILocalFileWriter, LocalFileWriter>();
         builder.Services.TryAddSingleton<IEnhancerAccessor, EnhancerAccessor>();

@@ -7,7 +7,7 @@ public class StructLogProcessor : IStructLogProcessor
     private LoggerOptions _loggerOptions;
     private readonly IConsoleColorPrint _consoleColorPrint;
     private readonly ILocalFileWriter _localFileWriter;
-    private readonly ILogSink _logSink;
+    private readonly ISink _logSink;
     private readonly BlockingCollection<StructLog> _structLogQueue;
     private readonly IDisposable? _onChangeToken;
     private readonly Thread _outputThread;
@@ -16,7 +16,7 @@ public class StructLogProcessor : IStructLogProcessor
         IOptionsMonitor<LoggerOptions> options, 
         IConsoleColorPrint consoleColorPrint, 
         ILocalFileWriter localFileWriter,
-        ILogSink logSink)
+        ISink logSink)
     {
         _loggerOptions = options.CurrentValue;
         _onChangeToken = options.OnChange(c => { _loggerOptions = c; });
