@@ -30,15 +30,24 @@ builder.Services.AddControllers(c =>
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+var corsName = "dr";
+builder.Services.AddCors(o =>
+{
+    o.AddPolicy(corsName, builder =>
+    {
+        builder.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
-
+app.UseCors(corsName);
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseAuthorization();
 
 app.MapControllers();

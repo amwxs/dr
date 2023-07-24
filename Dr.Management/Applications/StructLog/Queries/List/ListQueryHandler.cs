@@ -98,7 +98,7 @@ public class ListQueryHandler : IRequestHandler<ListQuery, CustResult<List<BaseL
         }
         #endregion
 
-        var search = new SearchRequest("drlogs-*")
+        var search = new SearchRequest<BaseLog>("drlogs")
         {
 
             Query = new BoolQuery
@@ -109,7 +109,15 @@ public class ListQueryHandler : IRequestHandler<ListQuery, CustResult<List<BaseL
             Size = request.PageSize,
             Source = new SourceFilter
             {
-                Excludes = new[] { "@timestamp", "@version", "Response", "Request", "Message", "Exception" }
+                Excludes = new[] { "@timestamp", "@version", "Response", "Request" }
+            },
+            Sort = new List<ISort>
+            {
+                new FieldSort
+                {
+                    Field ="CreateTime",
+                    Order = SortOrder.Descending
+                }
             }
         };
 

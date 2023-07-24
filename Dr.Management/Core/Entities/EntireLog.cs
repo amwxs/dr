@@ -5,11 +5,6 @@ namespace Dr.Management.Core.Entities;
 public class EntireLog: BaseLog
 {
 
-    [Text(Name = "Message")]
-    public string? Message { get; set; }
-    [Text(Name = "Exception")]
-    public string? Exception { get; set; }
-
     [Nested(Name= "Request")]
     public Request Request { get; set; } = new();
 

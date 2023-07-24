@@ -1,0 +1,103 @@
+<form nz-form>
+  <nz-row>
+    <nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="appId">AppId</nz-form-label>
+        <nz-form-control [nzSpan]="2">
+          <input nz-input name="appId" type="text" id="AppId" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="traceId">TraceId</nz-form-label>
+        <nz-form-control [nzSpan]="2">
+          <input nz-input name="traceId" type="text" id="traceId" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="message">Message</nz-form-label>
+        <nz-form-control [nzSpan]="2">
+          <input nz-input name="message" type="text" id="traceId" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="message">Exception</nz-form-label>
+        <nz-form-control [nzSpan]="2">
+          <input nz-input name="message" type="text" id="traceId" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="appId">LogLevel</nz-form-label>
+        <nz-form-control class="num-input">
+          <input nz-input name="appId" type="text" id="AppId" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="traceId">EventId</nz-form-label>
+        <nz-form-control class="num-input">
+          <input nz-input name="traceId" type="text" id="traceId" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+  <nz-row>
+    <nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="message">Elapsed</nz-form-label>
+        <nz-form-control class="num-input">
+          <input nz-input name="message" type="text" id="traceId" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzFor="message">CreateTime</nz-form-label>
+        <nz-form-control>
+          <input nz-input name="message" type="text" id="traceId" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8" nzFor="message">Request.Path</nz-form-label>
+        <nz-form-control [nzSpan]="2">
+          <input nz-input name="message" type="text" id="traceId" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="10" nzFor="message"
+          >Request.Body</nz-form-label
+        >
+        <nz-form-control [nzSpan]="2">
+          <input nz-input name="message" type="text" id="traceId" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col nzSpan="6">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="10" nzFor="message"
+          >Response.Body</nz-form-label
+        >
+        <nz-form-control [nzSpan]="2">
+          <input nz-input name="message" type="text" id="traceId" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col>
+      <nz-form-control [nzSpan]="2">
+        <button nz-button nzType="primary" onsubmit="onSubmit">查询</button>
+      </nz-form-control>
+    </nz-col>
+  </nz-row>
+</form>

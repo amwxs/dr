@@ -32,6 +32,12 @@ public class BaseLog
     [Number(Name = "Elapsed")]
     public long Elapsed { get; set; }
 
+    [Text(Name = "Message")]
+    public string? Message { get; set; }
+
+    [Text(Name = "Exception")]
+    public string? Exception { get; set; }
+
     [Date(Name = "CreateTime")]
     public DateTime CreateTime { get; set; }
 }

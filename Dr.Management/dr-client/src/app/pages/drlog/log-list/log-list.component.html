@@ -1,0 +1,44 @@
+<app-log-query></app-log-query>
+<nz-table
+  #basicTable
+  [nzData]="listOfData"
+  [nzTotal]="total"
+  [nzPageSize]="pageSize"
+  [nzPageIndex]="pageIndex"
+  [nzLoading]="pageLoading"
+  [nzFrontPagination]="false"
+  (nzQueryParams)="onQueryParamsChange($event)"
+>
+  <thead>
+    <tr>
+      <th>AppId</th>
+      <th>HostIP</th>
+      <th>TraceId</th>
+      <th>Message</th>
+      <th>Exception</th>
+      <th>LogLevel</th>
+      <th>EventId</th>
+      <th>Elapsed</th>
+      <th>CreateTime</th>
+      <th>Detail</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.appId }}</td>
+      <td>{{ data.hostIp }}</td>
+      <td>
+        <a>{{ data.traceId }}</a>
+      </td>
+      <td>{{ data.message }}</td>
+      <td>{{ data.exception }}</td>
+      <td>{{ data.logLevel }}</td>
+      <td>{{ data.eventId }}</td>
+      <td>{{ data.elapsed }}</td>
+      <td>{{ data.createTime | date : "yyyy/MM/dd hh:mm:ss" }}</td>
+      <td>
+        <a>明细</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
