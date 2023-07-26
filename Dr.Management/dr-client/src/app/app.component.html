@@ -8,8 +8,9 @@
     [nzTrigger]="null"
   >
     <div class="sidebar-logo">
-      <a href="https://ng.ant.design/" target="_blank">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo" />
+      <a href="#">
+        <span nz-icon nzType="global" nzTheme="outline" style="font-size: 2em">
+        </span>
         <h1>DR SYSTEM</h1>
       </a>
     </div>
@@ -21,7 +22,8 @@
       class="sidebar"
     >
       <li nz-menu-item nzMatchRouter>
-        <a routerLink="/logs">日志查询</a>
+        <span nz-icon nzType="file-search" nzTheme="outline"></span>
+        <a routerLink="/logs">系统日志</a>
       </li>
     </ul>
   </nz-sider>

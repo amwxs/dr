@@ -11,29 +11,25 @@
 >
   <thead>
     <tr>
-      <th>AppId</th>
-      <th>HostIP</th>
-      <th>TraceId</th>
-      <th>Message</th>
-      <th>Exception</th>
-      <th>LogLevel</th>
-      <th>EventId</th>
-      <th>Elapsed</th>
-      <th>CreateTime</th>
-      <th>Detail</th>
+      <th>应用ID</th>
+      <th>链路ID</th>
+      <th>日志内容</th>
+      <th>异常内容</th>
+      <th>日志级别</th>
+      <th>耗时</th>
+      <th>记录日期</th>
+      <th>详情</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let data of basicTable.data">
       <td>{{ data.appId }}</td>
-      <td>{{ data.hostIp }}</td>
       <td>
         <a>{{ data.traceId }}</a>
       </td>
       <td>{{ data.message }}</td>
       <td>{{ data.exception }}</td>
       <td>{{ data.logLevel }}</td>
-      <td>{{ data.eventId }}</td>
       <td>{{ data.elapsed }}</td>
       <td>{{ data.createTime | date : "yyyy/MM/dd hh:mm:ss" }}</td>
       <td>

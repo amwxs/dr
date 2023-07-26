@@ -9,6 +9,10 @@ import { LogQueryComponent } from './log-list/log-query/log-query.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzCardModule } from 'ng-zorro-antd/card';
 @NgModule({
   declarations: [LogListComponent, LogQueryComponent],
   imports: [
@@ -20,6 +24,10 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
     ReactiveFormsModule,
     NzFormModule,
     NzButtonModule,
+    NzInputModule,
+    NzDatePickerModule,
+    NzSelectModule,
+    NzCardModule,
   ],
 })
 export class DrlogModule {}

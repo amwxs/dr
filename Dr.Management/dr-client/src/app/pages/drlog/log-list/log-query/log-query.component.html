@@ -1,102 +1,124 @@
-<form nz-form>
+<form nz-form [formGroup]="queryForm" (ngSubmit)="onSubmit()">
   <nz-row>
-    <nz-col nzSpan="4">
+    <nz-col nzSpan="5">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6" nzFor="appId">AppId</nz-form-label>
-        <nz-form-control [nzSpan]="2">
-          <input nz-input name="appId" type="text" id="AppId" />
+        <nz-form-label>应用ID</nz-form-label>
+        <nz-form-control>
+          <input nz-input type="text" formControlName="appId" />
         </nz-form-control>
       </nz-form-item>
     </nz-col>
-    <nz-col nzSpan="4">
+    <nz-col nzSpan="8">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6" nzFor="traceId">TraceId</nz-form-label>
-        <nz-form-control [nzSpan]="2">
-          <input nz-input name="traceId" type="text" id="traceId" />
+        <nz-form-label nzFor="message">消息内容</nz-form-label>
+        <nz-form-control>
+          <input nz-input type="text" formControlName="message" />
         </nz-form-control>
       </nz-form-item>
     </nz-col>
-    <nz-col nzSpan="4">
+    <nz-col >
       <nz-form-item>
-        <nz-form-label [nzSpan]="6" nzFor="message">Message</nz-form-label>
-        <nz-form-control [nzSpan]="2">
-          <input nz-input name="message" type="text" id="traceId" />
+        <nz-form-label>时间范围</nz-form-label>
+        <nz-form-control>
+          <nz-date-picker
+            [nzDisabledDate]="disabledStartDate"
+            nzShowTime
+            nzFormat="yyyy-MM-dd HH:mm:ss"
+            nzPlaceHolder="开始时间"
+            formControlName="startValue"
+          ></nz-date-picker>
         </nz-form-control>
-      </nz-form-item>
-    </nz-col>
-    <nz-col nzSpan="4">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="6" nzFor="message">Exception</nz-form-label>
-        <nz-form-control [nzSpan]="2">
-          <input nz-input name="message" type="text" id="traceId" />
-        </nz-form-control>
-      </nz-form-item>
-    </nz-col>
-    <nz-col nzSpan="4">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="6" nzFor="appId">LogLevel</nz-form-label>
-        <nz-form-control class="num-input">
-          <input nz-input name="appId" type="text" id="AppId" />
-        </nz-form-control>
-      </nz-form-item>
-    </nz-col>
-    <nz-col nzSpan="4">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="6" nzFor="traceId">EventId</nz-form-label>
-        <nz-form-control class="num-input">
-          <input nz-input name="traceId" type="text" id="traceId" />
+        <span>-</span>
+        <nz-form-control>
+          <nz-date-picker
+            #endDatePicker
+            [nzDisabledDate]="disabledEndDate"
+            nzShowTime
+            nzFormat="yyyy-MM-dd HH:mm:ss"
+            nzPlaceHolder="结束时间"
+            formControlName="endValue"
+          ></nz-date-picker>
         </nz-form-control>
       </nz-form-item>
     </nz-col>
   </nz-row>
   <nz-row>
-    <nz-col nzSpan="4">
+    <nz-col nzSpan="5">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6" nzFor="message">Elapsed</nz-form-label>
-        <nz-form-control class="num-input">
-          <input nz-input name="message" type="text" id="traceId" />
-        </nz-form-control>
-      </nz-form-item>
-    </nz-col>
-    <nz-col nzSpan="4">
-      <nz-form-item>
-        <nz-form-label nzFor="message">CreateTime</nz-form-label>
+        <nz-form-label>链路ID</nz-form-label>
         <nz-form-control>
-          <input nz-input name="message" type="text" id="traceId" />
+          <input nz-input type="text" formControlName="traceId" />
         </nz-form-control>
       </nz-form-item>
     </nz-col>
-    <nz-col nzSpan="4">
+    <nz-col nzSpan="8">
       <nz-form-item>
-        <nz-form-label [nzSpan]="8" nzFor="message">Request.Path</nz-form-label>
-        <nz-form-control [nzSpan]="2">
-          <input nz-input name="message" type="text" id="traceId" />
+        <nz-form-label>异常内容</nz-form-label>
+        <nz-form-control>
+          <input nz-input type="text" formControlName="exception" />
         </nz-form-control>
       </nz-form-item>
     </nz-col>
-    <nz-col nzSpan="4">
+    <nz-col nzSpan="5" >
       <nz-form-item>
-        <nz-form-label [nzSpan]="10" nzFor="message"
-          >Request.Body</nz-form-label
-        >
-        <nz-form-control [nzSpan]="2">
-          <input nz-input name="message" type="text" id="traceId" />
+        <nz-form-label>耗时范围(ms)</nz-form-label>
+        <nz-form-control>
+          <input nz-input type="number" formControlName="elapsedStart" />
+        </nz-form-control>
+        <span>-</span>
+        <nz-form-control>
+          <input nz-input type="number" formControlName="elapsedEnd" />
         </nz-form-control>
       </nz-form-item>
     </nz-col>
-    <nz-col nzSpan="6">
+    <nz-col nzSpan="3">
       <nz-form-item>
-        <nz-form-label [nzSpan]="10" nzFor="message"
-          >Response.Body</nz-form-label
-        >
-        <nz-form-control [nzSpan]="2">
-          <input nz-input name="message" type="text" id="traceId" />
+        <nz-form-label nzFor="logLevel">日志级别</nz-form-label>
+        <nz-form-control>
+          <nz-select formControlName="logLevel">
+            <nz-option nzValue="0" nzLabel="Trace"></nz-option>
+            <nz-option nzValue="1" nzLabel="Debug"></nz-option>
+            <nz-option nzValue="2" nzLabel="Info"></nz-option>
+            <nz-option nzValue="3" nzLabel="Warn"></nz-option>
+            <nz-option nzValue="4" nzLabel="Error"></nz-option>
+            <nz-option nzValue="5" nzLabel="Error"></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </nz-col>
-    <nz-col>
-      <nz-form-control [nzSpan]="2">
-        <button nz-button nzType="primary" onsubmit="onSubmit">查询</button>
+  </nz-row>
+
+  <nz-row>
+    <nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-label>请求路径</nz-form-label>
+        <nz-form-control [nzSpan]="24">
+          <input nz-input type="text" formControlName="path" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col nzSpan="5">
+      <nz-form-item>
+        <nz-form-label>请求内容</nz-form-label>
+        <nz-form-control [nzSpan]="24">
+          <input nz-input type="text" formControlName="requestBody" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col nzSpan="5">
+      <nz-form-item>
+        <nz-form-label>响应内容</nz-form-label>
+        <nz-form-control [nzSpan]="24">
+          <input nz-input type="text" formControlName="responseBody" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+
+    <nz-col [nzSpan]="3">
+      <nz-form-control [nzSpan]="24">
+        <button nz-button nzType="primary" type="submit" class="search-btn">
+          查询
+        </button>
       </nz-form-control>
     </nz-col>
   </nz-row>

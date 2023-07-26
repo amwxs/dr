@@ -38,7 +38,7 @@
   transition: all 0.3s;
 }
 
-.sidebar-logo img {
+.sidebar-logo span {
   display: inline-block;
   height: 32px;
   width: 32px;
@@ -50,7 +50,7 @@
   margin: 0 0 0 20px;
   color: #fff;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 18px;
   font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
   vertical-align: middle;
 }
@@ -78,8 +78,13 @@ nz-content {
   background: #fff;
   height: 100%;
 }
-li {
-  justify-content: center;
-  align-items: center;
-}
 
+nz-sider li {
+  justify-content: start;
+}
+nz-sider li span {
+  padding: 0 10px;
+}
+nz-sider li a {
+  padding: 0 20px;
+}

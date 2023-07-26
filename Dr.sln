@@ -5,8 +5,6 @@ VisualStudioVersion = 17.6.33712.159
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-Logging", "01-Logging", "{543339C0-B4CF-424F-B2E0-B378A5678141}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-Components", "02-Components", "{7511A8C9-4B94-4B16-A7D2-0D05F592FFD7}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{0AD73D30-D1D0-46DD-979F-B2069739F4F0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dr.Extensions.Logging.Abstractions", "Dr.Extensions.Logging.Abstractions\Dr.Extensions.Logging.Abstractions.csproj", "{1064400F-9171-4918-8A5B-E47C3CB1CBE1}"
@@ -25,9 +23,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-ServiceDiscovery", "04-S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-Management", "03-Management", "{14EB4385-4D4C-42C9-A329-9B62A0AF59C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dr.Management", "Dr.Management\Dr.Management.csproj", "{C805336A-909D-4E63-817E-AB309F35E0AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dr.Management", "Dr.Management\Dr.Management.csproj", "{C805336A-909D-4E63-817E-AB309F35E0AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dr.Extensions.Logging.Kafka", "Dr.Extensions.Logging.Kafka\Dr.Extensions.Logging.Kafka.csproj", "{DFD21948-59E4-4155-9EA3-EFC163F94B8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dr.Extensions.Logging.Kafka", "Dr.Extensions.Logging.Kafka\Dr.Extensions.Logging.Kafka.csproj", "{DFD21948-59E4-4155-9EA3-EFC163F94B8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dr.Extensions.ServiceDiscovery.Abstractions", "Dr.Extensions.ServiceDiscovery.Abstractions\Dr.Extensions.ServiceDiscovery.Abstractions.csproj", "{16A376B1-4AE2-44C8-B01C-B6ACAEF477E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dr.Extensions.Bridge", "Dr.Extensions.Bridge\Dr.Extensions.Bridge.csproj", "{0C217F06-385C-492F-AFE1-4286E41D8F60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,14 @@ Global
 		{DFD21948-59E4-4155-9EA3-EFC163F94B8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFD21948-59E4-4155-9EA3-EFC163F94B8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFD21948-59E4-4155-9EA3-EFC163F94B8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16A376B1-4AE2-44C8-B01C-B6ACAEF477E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16A376B1-4AE2-44C8-B01C-B6ACAEF477E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16A376B1-4AE2-44C8-B01C-B6ACAEF477E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16A376B1-4AE2-44C8-B01C-B6ACAEF477E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C217F06-385C-492F-AFE1-4286E41D8F60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C217F06-385C-492F-AFE1-4286E41D8F60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C217F06-385C-492F-AFE1-4286E41D8F60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C217F06-385C-492F-AFE1-4286E41D8F60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,9 +87,11 @@ Global
 		{71877C59-3D51-45D1-BBD2-2572132E70A5} = {543339C0-B4CF-424F-B2E0-B378A5678141}
 		{99A70149-F8E5-450B-AF59-0F6D572E63DA} = {543339C0-B4CF-424F-B2E0-B378A5678141}
 		{7902539A-7D97-4E44-A5B5-84746D328583} = {0AD73D30-D1D0-46DD-979F-B2069739F4F0}
-		{4074EBFA-62A4-45DB-943C-385D3B535236} = {7511A8C9-4B94-4B16-A7D2-0D05F592FFD7}
+		{4074EBFA-62A4-45DB-943C-385D3B535236} = {543339C0-B4CF-424F-B2E0-B378A5678141}
 		{C805336A-909D-4E63-817E-AB309F35E0AE} = {14EB4385-4D4C-42C9-A329-9B62A0AF59C7}
 		{DFD21948-59E4-4155-9EA3-EFC163F94B8D} = {543339C0-B4CF-424F-B2E0-B378A5678141}
+		{16A376B1-4AE2-44C8-B01C-B6ACAEF477E9} = {631FA45E-935D-414A-8F7A-BF58D354585A}
+		{0C217F06-385C-492F-AFE1-4286E41D8F60} = {631FA45E-935D-414A-8F7A-BF58D354585A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FE3D7734-85FD-4075-A0AC-D318622500C6}
