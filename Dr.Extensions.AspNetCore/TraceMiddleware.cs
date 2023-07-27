@@ -83,7 +83,6 @@ public class TraceMiddleware
     private static LogEnhancer BulidEnhancerTrace(HttpContext context)
     {
         var enhancer = new LogEnhancer();
-;
         if (!context.Request.Headers.TryGetValue(EnhancerConst.TraceId, out var traceId) || string.IsNullOrEmpty(traceId))
         {
             traceId = Guid.NewGuid().ToString("N");

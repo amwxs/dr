@@ -1,9 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
 import { DrLog } from '../services/drlog';
 import { DrLogService } from '../services/dr-log.service';
-import { ListReq } from '../services/list-req';
+import { DrlogTableReq } from '../services/dr-log-table-req';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
-import { Observable, Subscribable } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-log-list',
@@ -11,16 +11,16 @@ import { Observable, Subscribable } from 'rxjs';
   styleUrls: ['./log-list.component.less'],
 })
 export class LogListComponent implements OnDestroy {
+  subscriptions = new Subscription();
   listOfData: DrLog[] = [];
   pageLoading = false;
   pageSize = 10;
   pageIndex = 1;
   total = 0;
-
-  req: ListReq;
+  req: DrlogTableReq;
 
   constructor(private drlogService: DrLogService) {
-    this.req = new ListReq();
+    this.req = new DrlogTableReq();
     drlogService.SubjectQueryChange.subscribe((q) => {
       this.req = q;
       this.req.pageIndex = this.pageIndex;
@@ -30,7 +30,9 @@ export class LogListComponent implements OnDestroy {
       console.log(q);
     });
   }
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.drlogService.SubjectQueryChange.unsubscribe();
+  }
 
   onQueryParamsChange(params: NzTableQueryParams) {
     const { pageSize, pageIndex } = params;
@@ -39,7 +41,7 @@ export class LogListComponent implements OnDestroy {
     this.loadData(this.req);
   }
 
-  loadData(req: ListReq) {
+  loadData(req: DrlogTableReq) {
     this.pageLoading = true;
     this.drlogService.list(req).subscribe((s) => {
       this.listOfData = s.data;

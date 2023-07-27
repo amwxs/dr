@@ -23,11 +23,6 @@ public class ListQueryHandler : IRequestHandler<ListQuery, CustResult<List<BaseL
 
         #region Query Conditions
 
-
-        if (!string.IsNullOrEmpty(request.HostIp))
-        {
-            q.Add(new TermQuery { Field = "HostIp", Value = request.HostIp });
-        }
         if (!string.IsNullOrEmpty(request.AppId))
         {
             q.Add(new TermQuery { Field = "AppId", Value = request.AppId });
@@ -36,23 +31,11 @@ public class ListQueryHandler : IRequestHandler<ListQuery, CustResult<List<BaseL
         {
             q.Add(new TermQuery { Field = "TraceId", Value = request.TraceId });
         }
-        if (!string.IsNullOrEmpty(request.SpanId))
-        {
-            q.Add(new TermQuery { Field = "SpanId", Value = request.SpanId });
-        }
-        if (!string.IsNullOrEmpty(request.ParentSpanId))
-        {
-            q.Add(new TermQuery { Field = "ParentSpanId", Value = request.ParentSpanId });
-        }
-        if (request.LogLevel != -999)
+
+        if (request.LogLevel >=0)
         {
             q.Add(new TermQuery { Field = "LogLevel", Value = request.LogLevel });
         }
-        if (request.EventId != -999)
-        {
-            q.Add(new TermQuery { Field = "EventId", Value = request.EventId });
-        }
-
         if (!string.IsNullOrEmpty(request.Message))
         {
             q.Add(new MatchQuery { Field = "Message", Query = request.Message });
@@ -62,39 +45,50 @@ public class ListQueryHandler : IRequestHandler<ListQuery, CustResult<List<BaseL
         {
             q.Add(new MatchQuery { Field = "Exception", Query = request.Exception });
         }
-        if (request.StartCreateTime.HasValue && request.EndCreateTime.HasValue)
+
+        if (request.StartTime.HasValue && request.EndTime.HasValue)
         {
-            q.Add(new DateRangeQuery { Field = "CreateTime", GreaterThan = request.StartCreateTime.Value, LessThan = request.EndCreateTime.Value });
+            q.Add(new DateRangeQuery { Field = "CreateTime", GreaterThan = request.StartTime.Value, LessThan = request.EndTime.Value });
+        }
+
+        if (request.ElapsedRangeStart.HasValue && request.ElapsedRangeEnd.HasValue)
+        {
+            q.Add(new LongRangeQuery { Field = "Elapsed", GreaterThan = request.ElapsedRangeStart.Value, LessThan = request.ElapsedRangeEnd.Value });
         }
 
         if (!string.IsNullOrEmpty(request.RequestPath))
         {
             q.Add(new MatchQuery { Field = "Request.Path", Query = request.RequestPath });
         }
-        if (!string.IsNullOrEmpty(request.RequestMethod))
-        {
-            q.Add(new TermQuery { Field = "Request.Method", Value = request.RequestMethod });
-        }
+
         if (!string.IsNullOrEmpty(request.RequestBody))
         {
-            q.Add(new MatchQuery { Field = "Request.Body", Query = request.RequestBody });
-        }
-        if (!string.IsNullOrEmpty(request.RequestHeader))
-        {
-            q.Add(new MatchQuery { Field = "Request.Headers", Query = request.RequestHeader });
+            var bQuery = new BoolQuery
+            {
+                Should = new List<QueryContainer>
+               {
+                  new MatchQuery { Field = "Request.Body", Query = request.RequestBody },
+                  new MatchQuery { Field = "Request.Headers", Query = request.RequestBody }
+               }
+            };
+            q.Add(bQuery);
         }
 
-        if (request.ResponseStatusCode != -999)
+        if (request.ResponseStatusCode >=0)
         {
             q.Add(new TermQuery { Field = "Response.StatusCode", Value = request.ResponseStatusCode });
         }
         if (!string.IsNullOrEmpty(request.ResponseBody))
         {
-            q.Add(new MatchQuery { Field = "Response.Body", Query = request.RequestBody });
-        }
-        if (!string.IsNullOrEmpty(request.ResponseHeader))
-        {
-            q.Add(new MatchQuery { Field = "Response.Headers", Query = request.RequestHeader });
+            var bQuery = new BoolQuery
+            {
+               Should = new List<QueryContainer>
+               {
+                   new MatchQuery { Field = "Response.Body", Query = request.RequestBody },
+                   new MatchQuery { Field = "Response.Headers", Query = request.RequestBody }
+               }
+            };
+            q.Add(bQuery);
         }
         #endregion
 

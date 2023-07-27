@@ -1,8 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { NzDatePickerComponent } from 'ng-zorro-antd/date-picker';
 import { DrLogService } from '../../services/dr-log.service';
-import { ListReq } from '../../services/list-req';
+import { DrlogTableReq } from '../../services/dr-log-table-req';
 
 @Component({
   selector: 'app-log-query',
@@ -10,20 +9,16 @@ import { ListReq } from '../../services/list-req';
   styleUrls: ['./log-query.component.less'],
 })
 export class LogQueryComponent {
-  startValue: Date | null = new Date();
-  endValue: Date | null = null;
-  @ViewChild('endDatePicker') endDatePicker!: NzDatePickerComponent;
-
   queryForm = this.fb.group({
     appId: [''],
     message: [''],
     traceId: [''],
     startValue: [],
-    endValue: [],
+    endValue: [null],
     exception: [''],
-    elapsedStart: [''],
-    elapsedEnd: [''],
-    logLevel: [''],
+    elapsedStart: [null],
+    elapsedEnd: [null],
+    logLevel: [-999],
     path: [''],
     requestBody: [''],
     responseBody: [''],
@@ -31,33 +26,59 @@ export class LogQueryComponent {
   constructor(private fb: FormBuilder, private logService: DrLogService) {}
 
   disabledStartDate = (startValue: Date): boolean => {
-    if (!startValue || !this.endValue) {
+    if (!startValue || !this.queryForm.value.endValue) {
       return false;
     }
-    return startValue.getTime() > this.endValue.getTime();
+    return (
+      startValue.getTime() > (this.queryForm.value.endValue as Date).getTime()
+    );
   };
 
   disabledEndDate = (endValue: Date): boolean => {
-    if (!endValue || !this.startValue) {
+    if (!endValue || !this.queryForm.value.startValue) {
       return false;
     }
-    return endValue.getTime() <= this.startValue.getTime();
+    return (
+      endValue.getTime() <= (this.queryForm.value.startValue as Date).getTime()
+    );
   };
 
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
   onSubmit() {
-    //console.log(this.queryForm.value);
-    var req = new ListReq();
-    req.appId = this.queryForm.value.appId;
-    req.message = this.queryForm.value.message;
-    req.traceId = this.queryForm.value.traceId;
-    // req.startValue = this.queryForm.value.startValue as Date;
-    // req.endValue = this.queryForm.value.endValue;
-    req.exception = this.queryForm.value.exception;
-    req.elapsedStart = this.queryForm.value.elapsedStart;
-    req.elapsedEnd = this.queryForm.value.elapsedEnd;
+    var req = new DrlogTableReq();
+
+    req.appId = this.queryForm.value.appId?.trim();
+    req.traceId = this.queryForm.value.traceId?.trim();
+    req.message = this.queryForm.value.message?.trim();
+
+    if (this.queryForm.value.startValue !== null) {
+      req.startTime = this.formatDate(
+        this.queryForm.value.startValue as unknown as Date
+      );
+    }
+
+    if (this.queryForm.value.endValue !== null) {
+      req.endTime = this.formatDate(
+        this.queryForm.value.endValue as unknown as Date
+      );
+    }
+    req.exception = this.queryForm.value.exception?.trim();
     req.logLevel = this.queryForm.value.logLevel;
-    req.requestBody = this.queryForm.value.requestBody;
-    req.responseBody = this.queryForm.value.responseBody;
+    req.elapsedRangeStart = this.queryForm.value.elapsedStart;
+    req.elapsedRangeEnd = this.queryForm.value.elapsedEnd;
+    req.requestPath = this.queryForm.value.path?.trim();
+    req.requestBody = this.queryForm.value.requestBody?.trim();
+    req.responseBody = this.queryForm.value.responseBody?.trim();
     this.logService.OnQueryChange(req);
   }
 }
