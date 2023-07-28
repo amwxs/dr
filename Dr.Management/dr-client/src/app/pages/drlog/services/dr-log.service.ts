@@ -29,4 +29,10 @@ export class DrLogService {
       `http://localhost:5056/Logging/query?${urlParams.toString()}`
     );
   }
+
+  detail(id: String) {
+    return this.http.get<CustResult<any>>(
+      `http://localhost:5056/Logging/detail?Id=${id}`
+    );
+  }
 }

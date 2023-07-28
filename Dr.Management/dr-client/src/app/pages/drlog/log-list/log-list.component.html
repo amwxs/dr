@@ -1,6 +1,7 @@
 <app-log-query></app-log-query>
 <nz-table
   #basicTable
+  nzShowSizeChanger
   [nzData]="listOfData"
   [nzTotal]="total"
   [nzPageSize]="pageSize"
@@ -33,7 +34,7 @@
       <td>{{ data.elapsed }}</td>
       <td>{{ data.createTime | date : "yyyy/MM/dd hh:mm:ss" }}</td>
       <td>
-        <a>明细</a>
+        <a (click)="showDetail(data.id)">详情</a>
       </td>
     </tr>
   </tbody>

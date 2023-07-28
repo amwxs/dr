@@ -4,6 +4,7 @@ import { DrLogService } from '../services/dr-log.service';
 import { DrlogTableReq } from '../services/dr-log-table-req';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { Subscription } from 'rxjs';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-log-list',
@@ -19,7 +20,12 @@ export class LogListComponent implements OnDestroy {
   total = 0;
   req: DrlogTableReq;
 
-  constructor(private drlogService: DrLogService) {
+  isVisible = false;
+
+  constructor(
+    private drlogService: DrLogService,
+    private modalService: NzModalService
+  ) {
     this.req = new DrlogTableReq();
     drlogService.SubjectQueryChange.subscribe((q) => {
       this.req = q;
@@ -50,5 +56,22 @@ export class LogListComponent implements OnDestroy {
       this.total = s.pager.total;
       this.pageLoading = false;
     });
+  }
+
+  showDetail(id: String): void {
+    // this.isVisible = true;
+    // this.drlogService.detail(id).subscribe((s) => {
+    //   const modal = this.modalService.create({
+    //     nzWidth: '50%',
+    //     nzContent:
+    //       '<code class="language-json">' +
+    //       JSON.stringify(s.data, null, 2) +
+    //       '</code>',
+    //     nzOnOk: () => {
+    //       console.log(111);
+    //       modal.destroy();
+    //     },
+    //   });
+    // });
   }
 }

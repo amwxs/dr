@@ -13,6 +13,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 @NgModule({
   declarations: [LogListComponent, LogQueryComponent],
   imports: [
@@ -28,6 +29,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
     NzDatePickerModule,
     NzSelectModule,
     NzCardModule,
+    NzModalModule,
   ],
 })
 export class DrlogModule {}

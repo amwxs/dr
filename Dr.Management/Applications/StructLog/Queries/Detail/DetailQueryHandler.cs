@@ -22,21 +22,27 @@ public class DetailQueryHandler : IRequestHandler<DetailQuery, CustResult<Entire
         {
             new TermQuery{ Field="_id", Value = request.Id}
         };
-        var searchRequest = new SearchRequest
+        var search = new SearchRequest("drlogs")
         {
             Query = new BoolQuery
             {
                 Must = q
             }
         };
-        var res = await client.GetAsync<EntireLog>(request.Id, c => c.Index("drlogs"), cancellationToken);
+        var res = await client.SearchAsync<EntireLog>(search, cancellationToken);
         if (!res.IsValid)
         {
             var errorReason = res.OriginalException?.Message ?? res.ServerError?.ToString();
             return CustResult.Failure<EntireLog>("4000", errorReason ?? string.Empty, null);
         }
-        var log = res.Source;
-        log.Id = res.Id;
+        var hit = res.Hits.FirstOrDefault();
+        if (hit == null)
+        {
+            return CustResult.Failure<EntireLog>("4000", "not found", null);
+        }
+
+        var log = hit.Source;
+        log.Id = hit.Id;
         return CustResult.Success(log);
 
     }

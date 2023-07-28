@@ -1,4 +1,5 @@
 export interface DrLog {
+id: String;
   appId: string;
   hostIp: string;
   traceId: string;
